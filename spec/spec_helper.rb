@@ -7,7 +7,7 @@ end
 ENV["RAILS_ENV"] = "test"
 
 require "combustion"
-require "dunkelziffer"
+require "frozen_rails"
 
 begin
   # See https://github.com/pat/combustion

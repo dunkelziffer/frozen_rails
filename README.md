@@ -1,8 +1,8 @@
 [![Gem Version](https://badge.fury.io/rb/dunkelziffer.svg)](https://rubygems.org/gems/dunkelziffer)
-[![Build](https://github.com/dunkelziffer/dunkelziffer/workflows/Build/badge.svg)](https://github.com/dunkelziffer/dunkelziffer/actions)
-[![JRuby Build](https://github.com/dunkelziffer/dunkelziffer/workflows/JRuby%20Build/badge.svg)](https://github.com/dunkelziffer/dunkelziffer/actions)
+[![Build](https://github.com/dunkelziffer/frozen_rails/workflows/Build/badge.svg)](https://github.com/dunkelziffer/frozen_rails/actions)
+[![JRuby Build](https://github.com/dunkelziffer/frozen_rails/workflows/JRuby%20Build/badge.svg)](https://github.com/dunkelziffer/frozen_rails/actions)
 
-# Dunkelziffer Gem Test
+# Frozen Rails
 
 TBD
 
@@ -14,7 +14,7 @@ Adding to a gem:
 # my-cool-gem.gemspec
 Gem::Specification.new do |spec|
   # ...
-  spec.add_dependency "dunkelziffer"
+  spec.add_dependency "frozen_rails"
   # ...
 end
 ```
@@ -23,7 +23,7 @@ Or adding to your project:
 
 ```ruby
 # Gemfile
-gem "dunkelziffer"
+gem "frozen_rails"
 ```
 
 ### Supported Ruby versions
@@ -37,7 +37,7 @@ TBD
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at [https://github.com/dunkelziffer/dunkelziffer](https://github.com/dunkelziffer/dunkelziffer).
+Bug reports and pull requests are welcome on GitHub at [https://github.com/dunkelziffer/frozen_rails](https://github.com/dunkelziffer/frozen_rails).
 
 ## Credits
 

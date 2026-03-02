@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
-require_relative "lib/dunkelziffer/version"
+require_relative "lib/frozen_rails/version"
 
 Gem::Specification.new do |s|
-  s.name = "dunkelziffer"
-  s.version = Dunkelziffer::VERSION
+  s.name = "frozen_rails"
+  s.version = FrozenRails::VERSION
   s.authors = ["Klaus Weidinger"]
   s.email = ["Klaus Weidinger"]
-  s.homepage = "https://github.com/dunkelziffer/dunkelziffer"
+  s.homepage = "https://github.com/dunkelziffer/frozen_rails"
   s.summary = "Example description"
   s.description = "Example description"
 
   s.metadata = {
-    "homepage_uri" => "https://github.com/dunkelziffer/dunkelziffer",
-    "changelog_uri" => "https://github.com/dunkelziffer/dunkelziffer/blob/main/CHANGELOG.md",
-    "bug_tracker_uri" => "https://github.com/dunkelziffer/dunkelziffer/issues",
-    "documentation_uri" => "https://github.com/dunkelziffer/dunkelziffer/blob/main/README.md",
-    "source_code_uri" => "https://github.com/dunkelziffer/dunkelziffer",
+    "homepage_uri" => "https://github.com/dunkelziffer/frozen_rails",
+    "changelog_uri" => "https://github.com/dunkelziffer/frozen_rails/blob/main/CHANGELOG.md",
+    "bug_tracker_uri" => "https://github.com/dunkelziffer/frozen_rails/issues",
+    "documentation_uri" => "https://github.com/dunkelziffer/frozen_rails/blob/main/README.md",
+    "source_code_uri" => "https://github.com/dunkelziffer/frozen_rails",
     "custom_attribute" => "a, b, c"
   }
 

@@ -1,4 +1,4 @@
 bump:
-  file: lib/dunkelziffer/version.rb
+  file: lib/frozen_rails/version.rb
   skip_ci: true
 
