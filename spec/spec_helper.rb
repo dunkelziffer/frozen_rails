@@ -7,7 +7,7 @@ end
 ENV["RAILS_ENV"] = "test"
 
 require "combustion"
-require "dunkelziffer_gem_test"
+require "dunkelziffer"
 
 begin
   # See https://github.com/pat/combustion

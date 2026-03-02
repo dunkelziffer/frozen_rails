@@ -21,5 +21,5 @@ assignees: dunkelziffer
 
 **Framework Version (Rails, whatever):**
 
-**Dunkelziffer Gem Test Version:**
+**Dunkelziffer Version:**
 

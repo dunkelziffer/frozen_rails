@@ -16,3 +16,5 @@ else
   gem "rails", "~> 7.0"
 end
 
+
+gem "gems", "~> 1.3"

@@ -1,6 +1,6 @@
-[![Gem Version](https://badge.fury.io/rb/dunkelziffer_gem_test.svg)](https://rubygems.org/gems/dunkelziffer_gem_test)
-[![Build](https://github.com/dunkelziffer/dunkelziffer_gem_test/workflows/Build/badge.svg)](https://github.com/palkan/dunkelziffer_gem_test/actions)
-[![JRuby Build](https://github.com/dunkelziffer/dunkelziffer_gem_test/workflows/JRuby%20Build/badge.svg)](https://github.com/dunkelziffer/dunkelziffer_gem_test/actions)
+[![Gem Version](https://badge.fury.io/rb/dunkelziffer.svg)](https://rubygems.org/gems/dunkelziffer)
+[![Build](https://github.com/dunkelziffer/dunkelziffer/workflows/Build/badge.svg)](https://github.com/dunkelziffer/dunkelziffer/actions)
+[![JRuby Build](https://github.com/dunkelziffer/dunkelziffer/workflows/JRuby%20Build/badge.svg)](https://github.com/dunkelziffer/dunkelziffer/actions)
 
 # Dunkelziffer Gem Test
 
@@ -14,7 +14,7 @@ Adding to a gem:
 # my-cool-gem.gemspec
 Gem::Specification.new do |spec|
   # ...
-  spec.add_dependency "dunkelziffer_gem_test"
+  spec.add_dependency "dunkelziffer"
   # ...
 end
 ```
@@ -23,7 +23,7 @@ Or adding to your project:
 
 ```ruby
 # Gemfile
-gem "dunkelziffer_gem_test"
+gem "dunkelziffer"
 ```
 
 ### Supported Ruby versions
@@ -37,7 +37,7 @@ TBD
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at [https://github.com/dunkelziffer/dunkelziffer_gem_test](https://github.com/dunkelziffer/dunkelziffer_gem_test).
+Bug reports and pull requests are welcome on GitHub at [https://github.com/dunkelziffer/dunkelziffer](https://github.com/dunkelziffer/dunkelziffer).
 
 ## Credits
 
