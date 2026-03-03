@@ -19,12 +19,12 @@ module Frozen
 
       # Generate the Page model using Decant
       def create_page_model
-        template "page.rb", "app/models/page.rb"
+        template "md/page.rb", "app/models/page.rb"
       end
 
       # Set up helpers
       def create_helpers
-        template "pages_helper.rb", "app/helpers/pages_helper.rb"
+        template "md/pages_helper.rb", "app/helpers/pages_helper.rb"
 
         # ensure application helper exists before injecting
         unless File.exist?("app/helpers/application_helper.rb")
@@ -53,8 +53,8 @@ module Frozen
 
       # Generate controller and view for pages
       def create_controller_and_view
-        template "pages_controller.rb", "app/controllers/pages_controller.rb"
-        template "show.html.erb", "app/views/pages/show.html.erb"
+        template "md/pages_controller.rb", "app/controllers/pages_controller.rb"
+        template "md/show.html.erb", "app/views/pages/show.html.erb"
       end
 
       # Add routes for pages
