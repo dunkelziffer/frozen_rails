@@ -59,6 +59,14 @@ bin/rails g frozen:seo
 bin/rails g frozen:ui
 ```
 
+```bash
+# Database helpers
+# - sqlite uuid patch
+# - static_db initializer
+# - friendly_id and Avo configuration
+bin/rails g frozen:db
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at [https://github.com/dunkelziffer/frozen_rails](https://github.com/dunkelziffer/frozen_rails).
