@@ -82,6 +82,11 @@ bin/rails g frozen:ssg
 bin/rails g frozen:dx
 ```
 
+```bash
+# Full Rails setup (runs all frozen generators in order)
+bin/rails g frozen:rails
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at [https://github.com/dunkelziffer/frozen_rails](https://github.com/dunkelziffer/frozen_rails).
