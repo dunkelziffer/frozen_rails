@@ -43,6 +43,13 @@ The gem ships with Rails generators under the `frozen` namespace. After includin
 bin/rails g frozen:md
 ```
 
+```bash
+# Setup
+# - SEO helpers
+# - sitemap/robots skeleton
+bin/rails g frozen:seo
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at [https://github.com/dunkelziffer/frozen_rails](https://github.com/dunkelziffer/frozen_rails).
