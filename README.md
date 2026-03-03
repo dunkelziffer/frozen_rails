@@ -4,7 +4,12 @@
 
 # Frozen Rails
 
-TBD
+DISCLAIMER: I generated this repo with AI and haven't tested it yet.
+I will verify manually verify the functionality and use AI to generate a test suite as soon as I get to it. Until then, use at your own risk.
+
+This repo automates the instructions from [rails-static.com](https://rails-static.com) and some additional setup which was created by me.
+
+Running the full setup `bin/rails g frozen:rails` should turn a fresh Rails application into a full static-site generator that supports Markdown AND structured data (SQLite). The SSG is very developer-focused and might be cumbersome to use for non-devs.
 
 ## Installation
 
