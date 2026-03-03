@@ -67,6 +67,14 @@ bin/rails g frozen:ui
 bin/rails g frozen:db
 ```
 
+```bash
+# Static site generation (Parklife) and CI
+# - add parklife gem, initialize project
+# - create GitHub Actions and GitLab CI workflows
+# - install helper script bin/create-index-symlinks
+bin/rails g frozen:ssg
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at [https://github.com/dunkelziffer/frozen_rails](https://github.com/dunkelziffer/frozen_rails).
