@@ -50,6 +50,15 @@ bin/rails g frozen:md
 bin/rails g frozen:seo
 ```
 
+```bash
+# Install UI features
+# - water.css
+# - sample importmap pin
+# - Hotwire Spark & Action Cable configuration
+# - Stimulus hotkey controller
+bin/rails g frozen:ui
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at [https://github.com/dunkelziffer/frozen_rails](https://github.com/dunkelziffer/frozen_rails).
