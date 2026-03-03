@@ -33,7 +33,15 @@ gem "frozen_rails"
 
 ## Usage
 
-TBD
+The gem ships with Rails generators under the `frozen` namespace. After including `frozen_rails` in your Rails application the following generators will be available:
+
+```bash
+# Setup
+# - decant & kramdown
+# - erb interpolation for .md files
+# - rouge syntax highlighting
+bin/rails g frozen:md
+```
 
 ## Contributing
 
