@@ -75,6 +75,13 @@ bin/rails g frozen:db
 bin/rails g frozen:ssg
 ```
 
+```bash
+# Developer experience helpers
+# - copy custom lib templates
+# - add autoload/generator config to application.rb
+bin/rails g frozen:dx
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at [https://github.com/dunkelziffer/frozen_rails](https://github.com/dunkelziffer/frozen_rails).
