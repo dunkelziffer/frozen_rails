@@ -41,6 +41,7 @@ gem "frozen_rails"
 The gem ships with Rails generators under the `frozen` namespace. After including `frozen_rails` in your Rails application the following generators will be available:
 
 ```bash
+# ❓ passes, ❓ works correctly, ❌ has test suite
 # Setup
 # - decant & kramdown
 # - erb interpolation for .md files
@@ -49,6 +50,7 @@ bin/rails g frozen:md
 ```
 
 ```bash
+# ❓ passes, ❓ works correctly, ❌ has test suite
 # Setup
 # - SEO helpers
 # - sitemap/robots skeleton
@@ -56,6 +58,7 @@ bin/rails g frozen:seo
 ```
 
 ```bash
+# ❓ passes, ❓ works correctly, ❌ has test suite
 # Install UI features
 # - water.css
 # - sample importmap pin
@@ -65,6 +68,7 @@ bin/rails g frozen:ui
 ```
 
 ```bash
+# ❓ passes, ❓ works correctly, ❌ has test suite
 # Database helpers
 # - sqlite uuid patch
 # - static_db initializer
@@ -73,6 +77,7 @@ bin/rails g frozen:db
 ```
 
 ```bash
+# ❓ passes, ❓ works correctly, ❌ has test suite
 # Static site generation (Parklife) and CI
 # - add parklife gem, initialize project
 # - create GitHub Actions and GitLab CI workflows
@@ -81,6 +86,7 @@ bin/rails g frozen:ssg
 ```
 
 ```bash
+# ❓ passes, ❓ works correctly, ❌ has test suite
 # Developer experience helpers
 # - copy custom lib templates
 # - add autoload/generator config to application.rb
@@ -88,6 +94,7 @@ bin/rails g frozen:dx
 ```
 
 ```bash
+# ❓ passes, ❓ works correctly, ❌ has test suite
 # Full Rails setup (runs all frozen generators in order)
 bin/rails g frozen:rails
 ```
