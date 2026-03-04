@@ -10,24 +10,19 @@ module Frozen
       desc "Prepare a Rails app for SQLite UUIDs, static_db, Avo and FriendlyId"
 
       # add necessary gems to Gemfile
-      def add_db_gems
-        append_to_file "Gemfile" do
-          <<~RUBY
+      def add_gems
+        gem "sqlite_extensions-uuid"
+        gem "static_db"
+        gem "friendly_id"
 
-            # support UUID primary keys with sqlite
-            gem "sqlite_extensions-uuid"
-
-            # simple read-only fixtures loader
-            gem "static_db"
-
-            # human-friendly slugs
-            gem "friendly_id"
-
-            group :development, :test do
-              gem "avo", ">= 3.2"
-            end
-          RUBY
+        gem_group :development, :test do
+          gem "avo", ">= 3.2"
         end
+      end
+
+      # Install gems
+      def bundle_gems
+        run "bundle"
       end
 
       # configure database.yml for sqlite uuid extension
@@ -62,9 +57,9 @@ module Frozen
         template "db/avo.rb", "config/initializers/avo.rb"
       end
 
-      # reminder to run migrations or generators
+      # reminder to run generators
       def post_install_reminders
-        say_status :info, "Run `bundle install` and then `rails generate friendly_id` to create slug migrations."
+        say_status :info, "Run `rails generate friendly_id` to create slug migrations."
       end
     end
   end

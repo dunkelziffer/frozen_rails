@@ -51,7 +51,7 @@ bin/rails g frozen:md
 ```
 
 ```bash
-# ❓ passes, ❓ works correctly, ❌ has test suite
+# ✅ passes, ❓ works correctly, ❌ has test suite
 # Database helpers
 # - sqlite uuid patch
 # - static_db initializer
