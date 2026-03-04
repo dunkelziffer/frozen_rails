@@ -1,9 +1,9 @@
-<% module_namespacing do -%>
-class <%= controller_class_name %>Controller < ApplicationController
-  before_action :set_<%= singular_table_name %>, only: :show
+<%% module_namespacing do -%>
+class <%%= controller_class_name %>Controller < ApplicationController
+  before_action :set_<%%= singular_table_name %>, only: :show
 
   def index
-    @<%= plural_table_name %> = <%= orm_class.all(class_name) %>
+    @<%%= plural_table_name %> = <%%= orm_class.all(class_name) %>
   end
 
   def show
@@ -11,9 +11,9 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   private
 
-  def set_<%= singular_table_name %>
-    @<%= singular_table_name %> = <%= orm_class.find(class_name, "params.expect(:id)") %>
+  def set_<%%= singular_table_name %>
+    @<%%= singular_table_name %> = <%%= orm_class.find(class_name, "params.expect(:id)") %>
   end
 
 end
-<% end -%>
+<%% end -%>

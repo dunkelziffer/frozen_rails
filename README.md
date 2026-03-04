@@ -78,7 +78,7 @@ bin/rails g frozen:ui
 ```
 
 ```bash
-# ❓ passes, ❓ works correctly, ❌ has test suite
+# ✅ passes, ❓ works correctly, ❌ has test suite
 # Developer experience helpers
 # - copy custom lib templates
 # - add autoload/generator config to application.rb
