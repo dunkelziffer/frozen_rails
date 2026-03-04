@@ -52,6 +52,15 @@ bin/rails g frozen:md
 
 ```bash
 # ❓ passes, ❓ works correctly, ❌ has test suite
+# Database helpers
+# - sqlite uuid patch
+# - static_db initializer
+# - friendly_id and Avo configuration
+bin/rails g frozen:db
+```
+
+```bash
+# ❓ passes, ❓ works correctly, ❌ has test suite
 # Setup
 # - SEO helpers
 # - sitemap/robots skeleton
@@ -70,11 +79,10 @@ bin/rails g frozen:ui
 
 ```bash
 # ❓ passes, ❓ works correctly, ❌ has test suite
-# Database helpers
-# - sqlite uuid patch
-# - static_db initializer
-# - friendly_id and Avo configuration
-bin/rails g frozen:db
+# Developer experience helpers
+# - copy custom lib templates
+# - add autoload/generator config to application.rb
+bin/rails g frozen:dx
 ```
 
 ```bash
@@ -84,14 +92,6 @@ bin/rails g frozen:db
 # - create GitHub Actions and GitLab CI workflows
 # - install helper script bin/create-index-symlinks
 bin/rails g frozen:ssg
-```
-
-```bash
-# ❓ passes, ❓ works correctly, ❌ has test suite
-# Developer experience helpers
-# - copy custom lib templates
-# - add autoload/generator config to application.rb
-bin/rails g frozen:dx
 ```
 
 ```bash
