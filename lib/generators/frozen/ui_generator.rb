@@ -43,14 +43,14 @@ module Frozen
       end
 
       def add_spark_gem
-        append_to_file "Gemfile" do
-          <<~RUBY
-
-            group :development do
-              gem "hotwire-spark"
-            end
-          RUBY
+        gem_group :development do
+          gem "hotwire-spark"
         end
+      end
+
+      # Install gems
+      def bundle_gems
+        run "bundle"
       end
 
       def configure_spark

@@ -68,7 +68,7 @@ bin/rails g frozen:seo
 ```
 
 ```bash
-# ❓ passes, ❓ works correctly, ❌ has test suite
+# ✅ passes, ❓ works correctly, ❌ has test suite
 # Install UI features
 # - water.css
 # - sample importmap pin
