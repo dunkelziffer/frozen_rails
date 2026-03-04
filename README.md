@@ -60,7 +60,7 @@ bin/rails g frozen:db
 ```
 
 ```bash
-# ❓ passes, ❓ works correctly, ❌ has test suite
+# ✅ passes, ❓ works correctly, ❌ has test suite
 # Setup
 # - SEO helpers
 # - sitemap/robots skeleton
