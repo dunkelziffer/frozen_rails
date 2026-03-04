@@ -86,7 +86,7 @@ bin/rails g frozen:dx
 ```
 
 ```bash
-# ❓ passes, ❓ works correctly, ❌ has test suite
+# ✅ passes, ❓ works correctly, ❌ has test suite
 # Static site generation (Parklife) and CI
 # - add parklife gem, initialize project
 # - create GitHub Actions and GitLab CI workflows
