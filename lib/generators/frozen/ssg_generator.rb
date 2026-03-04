@@ -19,6 +19,13 @@ module Frozen
         end
       end
 
+      # Install gems
+      def bundle_gems
+        Bundler.with_unbundled_env do
+          system("bundle install")
+        end
+      end
+
       def run_parklife_init
         say_status :info, "running parklife init (requires bundle install)"
         # attempt to run initialization if parklife is available

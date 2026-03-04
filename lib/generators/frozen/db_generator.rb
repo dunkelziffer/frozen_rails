@@ -22,7 +22,9 @@ module Frozen
 
       # Install gems
       def bundle_gems
-        run "bundle"
+        Bundler.with_unbundled_env do
+          system("bundle install")
+        end
       end
 
       # configure database.yml for sqlite uuid extension

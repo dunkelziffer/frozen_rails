@@ -95,7 +95,7 @@ bin/rails g frozen:ssg
 ```
 
 ```bash
-# ❓ passes, ❓ works correctly, ❌ has test suite
+# ✅ passes, ❓ works correctly, ❌ has test suite
 # Full Rails setup (runs all frozen generators in order)
 bin/rails g frozen:rails
 ```

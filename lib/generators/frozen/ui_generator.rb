@@ -50,7 +50,9 @@ module Frozen
 
       # Install gems
       def bundle_gems
-        run "bundle"
+        Bundler.with_unbundled_env do
+          system("bundle install")
+        end
       end
 
       def configure_spark

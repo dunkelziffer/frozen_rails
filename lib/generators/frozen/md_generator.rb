@@ -25,7 +25,9 @@ module Frozen
 
       # Install gems
       def bundle_gems
-        run "bundle"
+        Bundler.with_unbundled_env do
+          system("bundle install")
+        end
       end
 
       # Generate the Page model using Decant
