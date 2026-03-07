@@ -1,30 +1,30 @@
 # frozen_string_literal: true
 
-require "rails/generators"
+require "frozen_rails/generator"
 
 module Frozen
   module Generators
-    class DbGenerator < Rails::Generators::Base
+    class DbGenerator < FrozenRails::Generator
       source_root File.expand_path("templates", __dir__)
 
       desc "Prepare a Rails app for SQLite UUIDs, static_db, Avo and FriendlyId"
 
-      # add necessary gems to Gemfile
       def add_gems
-        gem "sqlite_extensions-uuid"
-        gem "static_db"
-        gem "friendly_id"
+        add_frozen_gems <<~RUBY
+          # frozen:db
+          gem "sqlite_extensions-uuid"
+          gem "static_db"
+          gem "friendly_id"
+        RUBY
 
-        gem_group :development, :test do
+        add_frozen_gems <<~RUBY, env: "local"
+          # frozen:db
           gem "avo", ">= 3.2"
-        end
+        RUBY
       end
 
-      # Install gems
       def bundle_gems
-        Bundler.with_unbundled_env do
-          system("bundle install")
-        end
+        bundle!
       end
 
       # configure database.yml for sqlite uuid extension

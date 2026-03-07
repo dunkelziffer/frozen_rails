@@ -1,29 +1,23 @@
 # frozen_string_literal: true
 
-require "rails/generators"
+require "frozen_rails/generator"
 
 module Frozen
   module Generators
-    class SsgGenerator < Rails::Generators::Base
+    class SsgGenerator < FrozenRails::Generator
       source_root File.expand_path("templates", __dir__)
 
       desc "Set up Parklife static site generation with CI workflows and helper scripts"
 
-      def add_parklife_gem
-        append_to_file "Gemfile" do
-          <<~RUBY
-
-            # Static site generation with Parklife
-            gem "parklife-rails"
-          RUBY
-        end
+      def add_gems
+        add_frozen_gems <<~RUBY
+          # frozen:ssg
+          gem "parklife-rails"
+        RUBY
       end
 
-      # Install gems
       def bundle_gems
-        Bundler.with_unbundled_env do
-          system("bundle install")
-        end
+        bundle!
       end
 
       def run_parklife_init

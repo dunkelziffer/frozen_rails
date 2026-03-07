@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "rails/generators"
+require "frozen_rails/generator"
 
 module Frozen
   module Generators
-    class SeoGenerator < Rails::Generators::Base
+    class SeoGenerator < FrozenRails::Generator
       source_root File.expand_path("templates", __dir__)
 
       desc "Add SEO helpers, metadata partials and sitemap/robots models"

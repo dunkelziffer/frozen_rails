@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "rails/generators"
+require "frozen_rails/generator"
 
 module Frozen
   module Generators
-    class DxGenerator < Rails::Generators::Base
+    class DxGenerator < FrozenRails::Generator
       source_root File.expand_path("templates", __dir__)
 
       desc "Install developer experience helpers: custom lib templates and generator config"

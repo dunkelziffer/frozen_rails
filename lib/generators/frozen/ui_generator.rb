@@ -1,13 +1,24 @@
 # frozen_string_literal: true
 
-require "rails/generators"
+require "frozen_rails/generator"
 
 module Frozen
   module Generators
-    class UiGenerator < Rails::Generators::Base
+    class UiGenerator < FrozenRails::Generator
       source_root File.expand_path("templates", __dir__)
 
       desc "Wire up UI helpers: classless CSS, importmap example, Hotwire Spark, Stimulus controller, and related configuration"
+
+      def add_gems
+        add_frozen_gems <<~RUBY, env: "development"
+          # frozen:ui
+          gem "hotwire-spark"
+        RUBY
+      end
+
+      def bundle_gems
+        bundle!
+      end
 
       def add_water_css
         return unless File.exist?("app/views/layouts/application.html.erb")
@@ -40,19 +51,6 @@ module Frozen
 
       def add_stimulus_controller
         template "ui/hotkey_controller.js", "app/javascript/controllers/hotkey_controller.js"
-      end
-
-      def add_spark_gem
-        gem_group :development do
-          gem "hotwire-spark"
-        end
-      end
-
-      # Install gems
-      def bundle_gems
-        Bundler.with_unbundled_env do
-          system("bundle install")
-        end
       end
 
       def configure_spark

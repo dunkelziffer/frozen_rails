@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "rails/generators"
+require "frozen_rails/generator"
 
 module Frozen
   module Generators
-    class MdGenerator < Rails::Generators::Base
+    class MdGenerator < FrozenRails::Generator
       source_root File.expand_path("templates", __dir__)
 
       # allow specifying a rouge theme programmatically; when absent the
@@ -15,19 +15,18 @@ module Frozen
 
       desc "Set up markdown-powered content with Decant, kramdown, ERB processing and Rouge highlighting"
 
-      # Add required gems to the application's Gemfile
       def add_gems
-        gem "decant"
-        gem "kramdown"
-        gem "kramdown-parser-gfm"
-        gem "rouge"
+        add_frozen_gems <<~RUBY
+          # frozen:md
+          gem "decant"
+          gem "kramdown"
+          gem "kramdown-parser-gfm"
+          gem "rouge"
+        RUBY
       end
 
-      # Install gems
       def bundle_gems
-        Bundler.with_unbundled_env do
-          system("bundle install")
-        end
+        bundle!
       end
 
       # Generate the Page model using Decant
