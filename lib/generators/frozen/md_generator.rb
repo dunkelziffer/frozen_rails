@@ -7,11 +7,8 @@ module Frozen
     class MdGenerator < FrozenRails::Generator
       source_root File.expand_path("templates", __dir__)
 
-      # allow specifying a rouge theme programmatically; when absent the
-      # generator will prompt interactively (unless running non-interactively)
-      class_option :rouge_theme,
-        type: :string,
-        desc: "Rouge theme to install (runs non-interactive if provided)"
+      # When absent, the generator will prompt interactively (unless running non-interactively).
+      class_option :rouge_theme, type: :string, desc: "Rouge theme to install (runs non-interactive if provided)"
 
       desc "Set up markdown-powered content with Decant, kramdown, ERB processing and Rouge highlighting"
 
@@ -29,60 +26,72 @@ module Frozen
         bundle!
       end
 
-      # Generate the Page model using Decant
-      def create_page_model
-        template "md/page.rb", "app/models/page.rb"
+      def create_content_directory
+        empty_directory "content/pages"
       end
 
-      # Set up helpers
-      def create_helpers
-        template "md/pages_helper.rb", "app/helpers/pages_helper.rb"
+      def copy_files
+        app_files = [
+          "controllers/categories_controller.rb",
+          "controllers/pages_controller.rb",
+          "helpers/markdown_helper.rb",
+          "models/concerns/linkable.rb",
+          "models/category.rb",
+          "models/page.rb",
+          "views/categories/index.html.erb",
+          "views/categories/show.html.erb",
+          "views/pages/show.html.erb",
+        ]
 
-        # ensure application helper exists before injecting
-        unless File.exist?("app/helpers/application_helper.rb")
-          create_file "app/helpers/application_helper.rb", "module ApplicationHelper\nend\n"
+        app_files.each do |app_file|
+          copy_file "md/#{app_file}", "app/#{app_file}"
         end
 
-        inject_into_file "app/helpers/application_helper.rb", after: "module ApplicationHelper\n" do
-          <<~RUBY
-            def render_content_from(page)
-              erb_processed_content = render(inline: page.content, layout: false)
-              Kramdown::Document.new(
-                erb_processed_content,
-                input: "GFM",
-                syntax_highlighter: :rouge
-              ).to_html.html_safe
-            end
+        config_files = [
+          "initializers/decant_extensions.rb",
+        ]
 
-          RUBY
+        config_files.each do |config_file|
+          copy_file "md/#{config_file}", "config/#{config_file}"
+        end
+
+        content_files = [
+          "pages/frozen-rails.md",
+          "pages/rails-static.md",
+        ]
+
+        content_files.each do |content_file|
+          copy_file "md/#{content_file}", "content/#{content_file}"
         end
       end
 
-      # Add content folder to the propshaft asset paths
       def add_assets_path
-        application %(config.assets.paths << Rails.root.join("content"))
-      end
+        append_to_application_config <<~RUBY
 
-      # Generate controller and view for pages
-      def create_controller_and_view
-        template "md/pages_controller.rb", "app/controllers/pages_controller.rb"
-        template "md/show.html.erb", "app/views/pages/show.html.erb"
+          # frozen:md
+          config.assets.paths << Rails.root.join("content")
+          config.action_dispatch.rescue_responses["Decant::FileNotFound"] = :not_found
+        RUBY
       end
 
       # Add routes for pages
       def add_routes
-        route %(root "pages#show", slug: "index")
-        route %(get "/*slug", to: "pages#show", as: :page)
+        append_to_routes <<~RUBY
+
+          # frozen:md
+          root "categories#index"
+
+          # Use `Regexp.union` instead of array for constraints!
+          # https://github.com/rails/rails/issues/47726
+          constraints slug: Regexp.union(Category.all.map(&:slug)) do
+            resources :categories, param: :slug, only: [:index, :show]
+          end
+
+          resources :pages, param: :slug, only: [:show]
+        RUBY
       end
 
-      # Create a starter content directory and index page
-      def create_content_directory
-        empty_directory "content/pages"
-        create_file "content/pages/index.md", "# Rails Static\n"
-      end
-
-      # ask for a Rouge theme (or use provided option) and generate stylesheet
-      def generate_rouge_css_hint
+      def generate_rouge_css_stylesheet
         theme = options[:rouge_theme]
 
         if theme.blank? && behavior == :invoke && $stdin.tty?

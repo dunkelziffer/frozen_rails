@@ -41,7 +41,7 @@ gem "frozen_rails"
 The gem ships with Rails generators under the `frozen` namespace. After including `frozen_rails` in your Rails application the following generators will be available:
 
 ```bash
-# ✅ passes, ❓ works correctly, ❌ has test suite
+# ✅ passes, ✅ works correctly, ❌ has test suite
 # Setup
 # - decant & kramdown
 # - erb interpolation for .md files
