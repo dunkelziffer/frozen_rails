@@ -65,9 +65,8 @@ module Frozen
         end
       end
 
-      def add_assets_path
+      def add_config
         append_to_application_config <<~RUBY
-
           # frozen:md
           config.assets.paths << Rails.root.join("content")
           config.action_dispatch.rescue_responses["Decant::FileNotFound"] = :not_found
@@ -77,7 +76,6 @@ module Frozen
       # Add routes for pages
       def add_routes
         append_to_routes <<~RUBY
-
           # frozen:md
           root "categories#index"
 
@@ -95,13 +93,14 @@ module Frozen
         theme = options[:rouge_theme]
 
         if theme.blank? && behavior == :invoke && $stdin.tty?
-          # query the list after bundling; run in subshell so we pick up newly
-          # installed gem without needing to require it in the current process.
-          themes = `bundle exec ruby -e "require 'rouge'; puts Rouge::Theme.registry.keys.sort"`
-            .split("\n")
+          # Run in subshell so we pick up newly installed gem without needing to require it in the current process.
+          themes = `bundle exec ruby -e "require 'rouge'; puts Rouge::Theme.registry.keys.sort"`.split("\n")
+
           say_status :info, "Available Rouge themes (#{themes.size}):", :blue
           themes.each_with_index { |t, i| say "  #{i + 1}. #{t}" }
+
           answer = ask("Choose a theme (name or number) [github]")
+
           theme = if /^\d+$/.match?(answer)
             themes[answer.to_i - 1]
           else
