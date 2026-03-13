@@ -13,3 +13,5 @@ const_defined?(:Rails)
 
 You are running in the "<%= Rails.env %>" environment.
 It is now <%= l(Time.current) %>.
+
+<%= pages_image_tag('rails-static-logo.webp') %>

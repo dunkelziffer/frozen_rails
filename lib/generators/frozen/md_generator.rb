@@ -58,6 +58,7 @@ module Frozen
         content_files = [
           "pages/frozen-rails.md",
           "pages/rails-static.md",
+          "pages/rails-static/rails-static-logo.webp",
         ]
 
         content_files.each do |content_file|
