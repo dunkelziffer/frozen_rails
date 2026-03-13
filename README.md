@@ -52,6 +52,15 @@ bin/rails g frozen:md
 
 ```bash
 # ✅ passes, ❓ works correctly, ❌ has test suite
+# Static site generation (Parklife) and CI
+# - add parklife gem, initialize project
+# - create GitHub Actions and GitLab CI workflows
+# - install helper script bin/create-index-symlinks
+bin/rails g frozen:ssg
+```
+
+```bash
+# ✅ passes, ❓ works correctly, ❌ has test suite
 # Database helpers
 # - sqlite uuid patch
 # - static_db initializer
@@ -87,17 +96,12 @@ bin/rails g frozen:dx
 
 ```bash
 # ✅ passes, ❓ works correctly, ❌ has test suite
-# Static site generation (Parklife) and CI
-# - add parklife gem, initialize project
-# - create GitHub Actions and GitLab CI workflows
-# - install helper script bin/create-index-symlinks
-bin/rails g frozen:ssg
+# Full Rails setup (runs all frozen generators in order)
+bin/rails g frozen:rails
 ```
 
 ```bash
-# ✅ passes, ❓ works correctly, ❌ has test suite
-# Full Rails setup (runs all frozen generators in order)
-bin/rails g frozen:rails
+# FUTURE: frozen:meetup
 ```
 
 ## Contributing
