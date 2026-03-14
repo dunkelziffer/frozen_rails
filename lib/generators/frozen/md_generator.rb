@@ -80,13 +80,10 @@ module Frozen
           # frozen:md
           root "categories#index"
 
-          # Use `Regexp.union` instead of array for constraints!
-          # https://github.com/rails/rails/issues/47726
           constraints slug: Regexp.union(Category.all.map(&:slug)) do
-            resources :categories, param: :slug, only: [:index, :show]
+            resources :categories, param: :slug, only: [ :index, :show ]
           end
-
-          resources :pages, param: :slug, only: [:show]
+          resources :pages, param: :slug, only: [ :show ]
         RUBY
       end
 
