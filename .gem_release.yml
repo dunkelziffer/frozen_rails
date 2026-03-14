@@ -1,3 +1,7 @@
 bump:
   file: lib/frozen_rails/version.rb
   skip_ci: false
+
+release:
+  tag: true
+  push: true
