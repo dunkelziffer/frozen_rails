@@ -42,61 +42,68 @@ The gem ships with Rails generators under the `frozen` namespace. After includin
 
 ```bash
 # ✅ passes, ✅ works correctly, ❌ has test suite
-# Setup
-# - decant & kramdown
-# - erb interpolation for .md files
-# - rouge syntax highlighting (chooses a theme interactively)
-#   pass `--rouge_theme=name` to run non-interactive
+
+# - Adds `decant` with a custom extension.
+# - Adds `kramdown`, `rouge` and ERB interpolation for `.md` files.
+# - Adds application scaffold.
+
 bin/rails g frozen:md
+# - Prompts for a rouge theme. Pass `--rouge_theme=name` to run non-interactive.
 ```
 
 ```bash
-# ✅ passes, ❓ works correctly, ❌ has test suite
-# Static site generation (Parklife) and CI
-# - add parklife gem, initialize project
-# - create GitHub Actions and GitLab CI workflows
-# - install helper script bin/create-index-symlinks
+# ✅ passes, ✅ works correctly, ❌ has test suite
+
+# - Adds `parklife`
+# - Adds `.gitlab-ci.yml` and tweaks parklife config.
+
 bin/rails g frozen:ssg
 ```
 
 ```bash
 # ✅ passes, ❓ works correctly, ❌ has test suite
-# Database helpers
+
 # - sqlite uuid patch
 # - static_db initializer
 # - friendly_id and Avo configuration
+
 bin/rails g frozen:db
 ```
 
 ```bash
 # ✅ passes, ❓ works correctly, ❌ has test suite
-# Setup
+
 # - SEO helpers
 # - sitemap/robots skeleton
+
 bin/rails g frozen:seo
 ```
 
 ```bash
 # ✅ passes, ❓ works correctly, ❌ has test suite
-# Install UI features
+
 # - water.css
 # - sample importmap pin
 # - Hotwire Spark & Action Cable configuration
 # - Stimulus hotkey controller
+
 bin/rails g frozen:ui
 ```
 
 ```bash
 # ✅ passes, ❓ works correctly, ❌ has test suite
-# Developer experience helpers
+
 # - copy custom lib templates
 # - add autoload/generator config to application.rb
+
 bin/rails g frozen:dx
 ```
 
 ```bash
 # ✅ passes, ❓ works correctly, ❌ has test suite
+
 # Full Rails setup (runs all frozen generators in order)
+
 bin/rails g frozen:rails
 ```
 

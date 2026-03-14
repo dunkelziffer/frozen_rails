@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors = ["Klaus Weidinger"]
   s.email = ["Klaus Weidinger"]
   s.homepage = "https://github.com/dunkelziffer/frozen_rails"
-  s.summary = "Example description"
-  s.description = "Example description"
+  s.summary = "Generators for turning Rails into an SSG"
+  s.description = "Generators for turning Rails into an SSG"
 
   s.metadata = {
     "homepage_uri" => "https://github.com/dunkelziffer/frozen_rails",
