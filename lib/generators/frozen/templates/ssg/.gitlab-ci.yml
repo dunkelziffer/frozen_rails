@@ -15,7 +15,6 @@ build:
     - apt-get install -y nodejs
     - bundle install --path vendor
     - bin/static-build
-    - bin/create-index-symlinks build
   artifacts:
     paths:
       - build

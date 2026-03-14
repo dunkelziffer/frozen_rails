@@ -27,9 +27,8 @@ module Frozen
       end
 
       def setup_gitlab_pages
-        copy_file "ssg/gitlab/.gitlab-ci.yml", ".gitlab-ci.yml"
-        copy_file "ssg/bin/create-index-symlinks", "bin/create-index-symlinks"
-        chmod "bin/create-index-symlinks", 0o755
+        copy_file "ssg/.gitlab-ci.yml", ".gitlab-ci.yml"
+        comment_lines "Parkfile", /config\.nested_index = false/
       end
 
     end
