@@ -40,7 +40,7 @@ module Frozen
           "models/page.rb",
           "views/categories/index.html.erb",
           "views/categories/show.html.erb",
-          "views/pages/show.html.erb",
+          "views/pages/show.html.erb"
         ]
 
         app_files.each do |app_file|
@@ -48,7 +48,7 @@ module Frozen
         end
 
         config_files = [
-          "initializers/decant_extensions.rb",
+          "initializers/decant_extensions.rb"
         ]
 
         config_files.each do |config_file|
@@ -58,7 +58,7 @@ module Frozen
         content_files = [
           "pages/frozen-rails.md",
           "pages/rails-static.md",
-          "pages/rails-static/rails-static-logo.webp",
+          "pages/rails-static/rails-static-logo.webp"
         ]
 
         content_files.each do |content_file|

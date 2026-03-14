@@ -11,7 +11,7 @@ Category = Data.define(:slug, :title) do
   def self.all
     [
       new(slug: "intro", title: "How it began"),
-      new(slug: "outro", title: "How it ended"),
+      new(slug: "outro", title: "How it ended")
     ]
   end
 
@@ -32,5 +32,4 @@ Category = Data.define(:slug, :title) do
   def pages
     Page.where(category_slugs: slug)
   end
-
 end

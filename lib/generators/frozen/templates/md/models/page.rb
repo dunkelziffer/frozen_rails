@@ -10,5 +10,4 @@ Page = Decant.define(dir: "content/pages", ext: "md") do
   def categories
     Category.where(slug: category_slugs)
   end
-
 end

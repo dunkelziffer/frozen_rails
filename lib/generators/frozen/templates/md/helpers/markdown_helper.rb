@@ -1,5 +1,4 @@
 module MarkdownHelper
-
   def render_content_from(page)
     erb_processed_content = render(inline: page.content, layout: false)
     Kramdown::Document.new(
@@ -12,5 +11,4 @@ module MarkdownHelper
   def pages_image_tag(path, **kwargs)
     image_tag "pages/#{@page.slug}/#{path}", **kwargs
   end
-
 end

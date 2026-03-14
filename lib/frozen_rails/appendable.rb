@@ -10,5 +10,4 @@ module Appendable
   def append_to_routes(content)
     inject_into_file "config/routes.rb", optimize_indentation("\n#{content}", 2), before: /end(?:\n)\z/, verbose: false
   end
-
 end

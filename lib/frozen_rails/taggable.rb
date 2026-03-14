@@ -19,7 +19,7 @@ module Taggable
   end
 
   def frozen_end_tag(env: nil)
-    frozen_start_tag(env:).gsub('# <', '# </')
+    frozen_start_tag(env:).gsub("# <", "# </")
   end
 
   def add_frozen_gemfile_tags(env: nil)
@@ -34,9 +34,9 @@ module Taggable
     case env
     when nil
       /frozen_rails[^\n]*\n/
-    when 'local'
+    when "local"
       "group :development, :test do\n"
-    when 'development'
+    when "development"
       "group :development do\n"
     else
       raise "Unsupported env!"
@@ -45,15 +45,14 @@ module Taggable
 
   def cleanup_frozen_tags!(env: nil)
     if options[:cleanup_frozen_tags]
-      gsub_file! "Gemfile", /[^\n]*#{frozen_start_tag(env:)}[^\n]*\n/, ''
-      gsub_file! "Gemfile", /[^\n]*#{frozen_end_tag(env:)}[^\n]*\n/, ''
+      gsub_file! "Gemfile", /[^\n]*#{frozen_start_tag(env:)}[^\n]*\n/, ""
+      gsub_file! "Gemfile", /[^\n]*#{frozen_end_tag(env:)}[^\n]*\n/, ""
     end
   end
 
   def cleanup_all_frozen_tags!
     cleanup_frozen_tags!
-    cleanup_frozen_tags!(env: 'local')
-    cleanup_frozen_tags!(env: 'development')
+    cleanup_frozen_tags!(env: "local")
+    cleanup_frozen_tags!(env: "development")
   end
-
 end

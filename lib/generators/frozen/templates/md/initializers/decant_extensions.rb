@@ -1,8 +1,7 @@
-require 'decant/content'
+require "decant/content"
 
 module Decant
   class Content
-
     def self.where(**kwargs)
       scope = all
       kwargs.each do |key, value|
@@ -12,6 +11,5 @@ module Decant
       end
       scope
     end
-
   end
 end

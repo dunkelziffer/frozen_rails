@@ -19,7 +19,7 @@ RSpec.describe Frozen::Generators::MdGenerator do
     end
 
     context "when --rouge_theme is provided" do
-      let(:generator_opts) { {"rouge_theme" => "monokai"} }
+      let(:generator_opts) { { "rouge_theme" => "monokai" } }
 
       it "uses the supplied theme without prompting" do
         expect(generator).to_not receive(:ask)

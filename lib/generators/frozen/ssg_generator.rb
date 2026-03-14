@@ -30,7 +30,6 @@ module Frozen
         copy_file "ssg/.gitlab-ci.yml", ".gitlab-ci.yml"
         comment_lines "Parkfile", /config\.nested_index = false/
       end
-
     end
   end
 end

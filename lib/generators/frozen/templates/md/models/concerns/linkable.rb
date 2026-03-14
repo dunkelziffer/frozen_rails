@@ -38,5 +38,4 @@ module Linkable
   def persisted?
     true
   end
-
 end
