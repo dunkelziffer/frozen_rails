@@ -63,9 +63,11 @@ bin/rails g frozen:ssg
 ```bash
 # ✅ passes, ❓ works correctly, ❌ has test suite
 
-# - sqlite uuid patch
-# - static_db initializer
-# - friendly_id and Avo configuration
+# - Adds `sqlite_extensions-uuid`
+# - Adds `static_db`
+# - Adds `friendly_id`
+# - Adds `avo`
+# - Adjusts Rails scaffold generator and migration generator to be more helpful
 
 bin/rails g frozen:db
 ```
@@ -80,6 +82,14 @@ bin/rails g frozen:seo
 ```
 
 ```bash
+# FUTURE: frozen:erb
+
+# - view_component
+# - herb
+# - lookbook
+```
+
+```bash
 # ✅ passes, ❓ works correctly, ❌ has test suite
 
 # - water.css
@@ -88,15 +98,6 @@ bin/rails g frozen:seo
 # - Stimulus hotkey controller
 
 bin/rails g frozen:ui
-```
-
-```bash
-# ✅ passes, ❓ works correctly, ❌ has test suite
-
-# - copy custom lib templates
-# - add autoload/generator config to application.rb
-
-bin/rails g frozen:dx
 ```
 
 ```bash

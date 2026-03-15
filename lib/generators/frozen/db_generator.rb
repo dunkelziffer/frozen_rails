@@ -17,7 +17,7 @@ module Frozen
           gem "friendly_id"
         RUBY
 
-        add_frozen_gems <<~RUBY, env: "local"
+        add_frozen_gems <<~RUBY, env: "development"
           # frozen:db
           gem "avo", ">= 3.2"
         RUBY
@@ -27,42 +27,85 @@ module Frozen
         bundle!
       end
 
-      # configure database.yml for sqlite uuid extension
-      def configure_database_yml
-        return unless File.exist?("config/database.yml")
-
-        inject_into_file "config/database.yml", after: "adapter: sqlite3\n" do
-          <<~YML
-            extensions:
-              - <%= SqliteExtensions::UUID.to_path %>
-          YML
-        end
+      def add_routes
+        append_to_routes <<~RUBY
+          # frozen:db
+          if Rails.env.development?
+            mount_avo at: "/avo"
+          end
+        RUBY
       end
 
-      # create initializer for sqlite uuid generator patch
-      def create_sqlite_uuid_initializer
-        template "db/sqlite_uuid.rb", "config/initializers/sqlite_uuid.rb"
+      def copy_files
+        copy_file "db/database.yml", "config/database.yml", force: true
+        copy_directory "db/initializers", "config/initializers"
+        copy_directory "db/lib", "lib"
       end
 
-      # create initializer for static_db configuration
-      def create_static_db_initializer
-        template "db/static_db.rb", "config/initializers/static_db.rb"
+      def configure_application
+        # TODO: Maybe Avo hotfix
+        # TODO: add `templates` and `generators` to `config.autoload_lib(ignore: %w[assets tasks])`
+
+        append_to_application_config <<~RUBY
+          # frozen:db
+          config.generators do |g|
+            g.orm :active_record, primary_key_type: :uuid
+            g.test_framework false
+          end
+          config.active_storage.draw_routes = true
+        RUBY
       end
 
-      # create friendly_id initializer
-      def create_friendly_id_initializer
-        template "db/friendly_id.rb", "config/initializers/friendly_id.rb"
+      def prepare_db
+        rails_command "db:create"
+        rails_command "db:schema:load"
       end
 
-      # create a minimal avo initializer stub
-      def create_avo_initializer
-        template "db/avo.rb", "config/initializers/avo.rb"
+      def setup_active_storage
+        rails_command "active_storage:install"
+
+        active_storage_migration = in_root { Dir.glob("db/migrate/*.active_storage.rb").first }
+
+        gsub_file active_storage_migration, /# Use.*\n.*primary_and_foreign_key_types/, <<~RUBY.chomp.lines.map(&:chomp).join("\n    ")
+          # Use custom primary and foreign key types to support SQLite UUIDs.
+          primary_key_type = { id: :string, default: -> { "uuid()" }, limit: 36 }
+          foreign_key_type = { type: :string, limit: 36 }
+        RUBY
+        gsub_file active_storage_migration, "id: primary_key_type", "**primary_key_type"
+        gsub_file active_storage_migration, "type: foreign_key_type", "**foreign_key_type"
+        gsub_file active_storage_migration, /\n\s*private.*end(?=\nend)/m, ""
       end
 
-      # reminder to run generators
-      def post_install_reminders
-        say_status :info, "Run `rails generate friendly_id` to create slug migrations."
+      def setup_friendly_id
+        rails_command "g migration create_friendly_id_slugs"
+
+        friendly_id_migration = in_root { Dir.glob("db/migrate/*create_friendly_id_slugs.rb").first }
+
+        gsub_file friendly_id_migration, /create_table.*?end(?=\n)/m, <<~RUBY.chomp.lines.map(&:chomp).join("\n    ")
+          create_table :friendly_id_slugs, id: :string, default: -> { "uuid()" }, limit: 36 do |t|
+            t.string :slug, null: false
+            t.string :sluggable_id, limit: 36, null: false
+            t.string :sluggable_type, limit: 50
+            t.string :scope
+            t.datetime :created_at
+          end
+          add_index :friendly_id_slugs, [ :sluggable_type, :sluggable_id ]
+          add_index :friendly_id_slugs, [ :slug, :sluggable_type ], length: { slug: 140, sluggable_type: 50 }
+          add_index :friendly_id_slugs, [ :slug, :sluggable_type, :scope ], length: { slug: 70, sluggable_type: 50, scope: 70 }, unique: true
+        RUBY
       end
+
+      def setup_avo
+        rails_command "g avo:install", skip_routes: true
+      end
+
+      def migrate_and_cleanup_db
+        rails_command "db:migrate"
+        rails_command "db:drop"
+      end
+
+      # TODO: add docs
+
     end
   end
 end

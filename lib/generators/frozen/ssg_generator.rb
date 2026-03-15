@@ -30,6 +30,15 @@ module Frozen
         copy_file "ssg/.gitlab-ci.yml", ".gitlab-ci.yml"
         comment_lines "Parkfile", /config\.nested_index = false/
       end
+
+      # TODO:
+      # - Add `/build` to `.gitignore`
+      # - storage.yml
+      # - `config/environments/production.rb`:
+      #   - `config.active_storage.service = :parklife`
+      #   - `config.assume_ssl = true``
+      # - `config/application.rb`
+      #   - Parklive ActiveStorage integration
     end
   end
 end

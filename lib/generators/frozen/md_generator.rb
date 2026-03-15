@@ -74,12 +74,11 @@ module Frozen
         RUBY
       end
 
-      # Add routes for pages
       def add_routes
         append_to_routes <<~RUBY
-          # frozen:md
           root "categories#index"
 
+          # frozen:md
           constraints slug: Regexp.union(Category.all.map(&:slug)) do
             resources :categories, param: :slug, only: [ :index, :show ]
           end
