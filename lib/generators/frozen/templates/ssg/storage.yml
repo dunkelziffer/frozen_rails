@@ -1,0 +1,12 @@
+# Intentionally use same storage location for local and parklife!!!
+local: &default
+  service: Disk
+  root: <%= Rails.root.join("content/storage") %>
+
+parklife:
+  <<: *default
+  service: Parklife
+
+test:
+  service: Disk
+  root: <%= Rails.root.join("tmp/storage") %>

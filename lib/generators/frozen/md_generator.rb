@@ -5,7 +5,7 @@ require "frozen_rails/generator"
 module Frozen
   module Generators
     class MdGenerator < FrozenRails::Generator
-      source_root File.expand_path("templates", __dir__)
+      source_root File.expand_path("templates/md", __dir__)
 
       # When absent, the generator will prompt interactively (unless running non-interactively).
       class_option :rouge_theme, type: :string, desc: "Rouge theme to install (runs non-interactive if provided)"
@@ -26,44 +26,13 @@ module Frozen
         bundle!
       end
 
-      def create_content_directory
-        empty_directory "content/pages"
-      end
-
       def copy_files
-        app_files = [
-          "controllers/categories_controller.rb",
-          "controllers/pages_controller.rb",
-          "helpers/markdown_helper.rb",
-          "models/concerns/linkable.rb",
-          "models/category.rb",
-          "models/page.rb",
-          "views/categories/index.html.erb",
-          "views/categories/show.html.erb",
-          "views/pages/show.html.erb"
-        ]
-
-        app_files.each do |app_file|
-          copy_file "md/#{app_file}", "app/#{app_file}"
-        end
-
-        config_files = [
-          "initializers/decant_extensions.rb"
-        ]
-
-        config_files.each do |config_file|
-          copy_file "md/#{config_file}", "config/#{config_file}"
-        end
-
-        content_files = [
-          "pages/frozen-rails.md",
-          "pages/rails-static.md",
-          "pages/rails-static/rails-static-logo.webp"
-        ]
-
-        content_files.each do |content_file|
-          copy_file "md/#{content_file}", "content/#{content_file}"
-        end
+        copy_directory "controllers", "app/controllers"
+        copy_directory "helpers", "app/helpers"
+        copy_directory "models", "app/models"
+        copy_directory "views", "app/views"
+        copy_directory "initializers", "config/initializers"
+        copy_directory "pages", "content/pages"
       end
 
       def add_config

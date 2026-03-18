@@ -5,15 +5,15 @@ require "frozen_rails/generator"
 module Frozen
   module Generators
     class DbGenerator < FrozenRails::Generator
-      source_root File.expand_path("templates", __dir__)
+      source_root File.expand_path("templates/db", __dir__)
 
-      desc "Prepare a Rails app for SQLite UUIDs, static_db, Avo and FriendlyId"
+      desc "Prepare a Rails app for static_db with SQLite UUIDs, Avo and FriendlyId"
 
       def add_gems
         add_frozen_gems <<~RUBY
           # frozen:db
-          gem "sqlite_extensions-uuid"
           gem "static_db"
+          gem "sqlite_extensions-uuid"
           gem "friendly_id"
         RUBY
 
@@ -37,14 +37,23 @@ module Frozen
       end
 
       def copy_files
-        copy_file "db/database.yml", "config/database.yml", force: true
-        copy_directory "db/initializers", "config/initializers"
-        copy_directory "db/lib", "lib"
+        copy_file "database.yml", "config/database.yml", force: true
+        copy_directory "initializers", "config/initializers"
+
+        # TODO: modify model generator to prepare:
+        # include FriendlyId
+        # friendly_id :name
+        # TODO: override Rails generators with regular generators instead of initializer
+        # TODO: fix scaffold templates
+        # TODO: only generate files that we want
+        #
+        # TODO: maybe deal with missing action text for static:dump
+
+        copy_directory "lib", "lib"
       end
 
       def configure_application
-        # TODO: Maybe Avo hotfix
-        # TODO: add `templates` and `generators` to `config.autoload_lib(ignore: %w[assets tasks])`
+        gsub_file "config/application.rb", /(config\.autoload_lib\(ignore: %w\[).*(\]\))/, '\1assets generators tasks templates\2'
 
         append_to_application_config <<~RUBY
           # frozen:db
@@ -96,16 +105,33 @@ module Frozen
       end
 
       def setup_avo
-        rails_command "g avo:install", skip_routes: true
+        rails_command "g avo:install"
+
+        prepend_to_file "config/initializers/avo.rb", <<~RUBY + "\n"
+          if Rails.env.development?
+            # Allow moving Avo controllers into `app/avo/controllers/`
+            Rails.autoloaders.main.collapse(
+              Rails.root.join("avo/controllers")
+            )
+          else
+            # Don't load Avo
+            Rails.autoloaders.main.ignore(
+              Rails.root.join("app/avo"),
+              Rails.root.join("app/controllers/avo")
+            )
+
+            # Don't configure Avo
+            return
+          end
+        RUBY
+
+        run "b rubocop -a config/initializers/avo.rb"
       end
 
       def migrate_and_cleanup_db
         rails_command "db:migrate"
         rails_command "db:drop"
       end
-
-      # TODO: add docs
-
     end
   end
 end
