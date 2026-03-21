@@ -61,7 +61,7 @@ bin/rails g frozen:ssg
 ```
 
 ```bash
-# ✅ passes, ❓ works correctly, ❌ has test suite
+# ✅ passes, ✅ works correctly, ❌ has test suite
 
 # - Adds `sqlite_extensions-uuid`
 # - Adds `static_db`

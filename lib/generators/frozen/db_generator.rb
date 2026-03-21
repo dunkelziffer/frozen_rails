@@ -39,16 +39,6 @@ module Frozen
       def copy_files
         copy_file "database.yml", "config/database.yml", force: true
         copy_directory "initializers", "config/initializers"
-
-        # TODO: modify model generator to prepare:
-        # include FriendlyId
-        # friendly_id :name
-        # TODO: override Rails generators with regular generators instead of initializer
-        # TODO: fix scaffold templates
-        # TODO: only generate files that we want
-        #
-        # TODO: maybe deal with missing action text for static:dump
-
         copy_directory "lib", "lib"
       end
 
@@ -59,7 +49,8 @@ module Frozen
           # frozen:db
           config.generators do |g|
             g.orm :active_record, primary_key_type: :uuid
-            g.test_framework false
+            g.test_framework nil
+            g.helper nil
           end
           config.active_storage.draw_routes = true
         RUBY
@@ -111,7 +102,7 @@ module Frozen
           if Rails.env.development?
             # Allow moving Avo controllers into `app/avo/controllers/`
             Rails.autoloaders.main.collapse(
-              Rails.root.join("avo/controllers")
+              Rails.root.join("app/avo/controllers")
             )
           else
             # Don't load Avo
