@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
     .split("\n")
     .reject { |f| File.symlink?(f) }
     .reject { |f| f == gemspec }
-    .reject { |f| f.start_with?(*%w[.github/ bin/ docs/ spec/ .gem_release.yml .gitignore .rspec .rubocop.yml .ruby-version Gemfile Gemfile.lock]) }
+    .reject { |f| f.start_with?(*%w[.github/ bin/ docs/ spec/ .gem_release.yml .gitignore .rspec .rubocop.yml .ruby-version Gemfile Gemfile.lock RELEASING.md]) }
   s.require_paths = [ "lib" ]
 
   s.bindir = "exe"
