@@ -1,17 +1,15 @@
-# frozen_string_literal: true
-
 require "frozen_rails/generator"
 
 module Frozen
   module Generators
     class SeoGenerator < FrozenRails::Generator
-      source_root File.expand_path("templates", __dir__)
+      source_root File.expand_path("templates/seo", __dir__)
 
       desc "Add SEO helpers, metadata partials and sitemap/robots models"
 
       # add meta partial and update layout
       def create_og_partial
-        template "seo/_og_meta_tags.html.erb", "app/views/layouts/_og_meta_tags.html.erb"
+        template "_og_meta_tags.html.erb", "app/views/layouts/_og_meta_tags.html.erb"
       end
 
       def inject_layout_tags
@@ -96,9 +94,9 @@ module Frozen
 
       # sitemap models
       def create_sitemap_models
-        template "seo/sitemap.rb", "app/models/sitemap.rb"
-        template "seo/sitemap_entry.rb", "app/models/sitemap/entry.rb"
-        template "seo/robots_generatable.rb", "app/models/sitemap/robots_generatable.rb"
+        template "sitemap.rb", "app/models/sitemap.rb"
+        template "sitemap_entry.rb", "app/models/sitemap/entry.rb"
+        template "robots_generatable.rb", "app/models/sitemap/robots_generatable.rb"
       end
 
       def remove_default_robots

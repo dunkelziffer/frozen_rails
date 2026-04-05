@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require "rails/generators"
 require "frozen_rails/appendable"
 require "frozen_rails/bundleable"
