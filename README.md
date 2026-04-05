@@ -1,6 +1,5 @@
-[![Gem Version](https://badge.fury.io/rb/dunkelziffer.svg)](https://rubygems.org/gems/dunkelziffer)
+[![Gem Version](https://badge.fury.io/rb/frozen_rails.svg)](https://rubygems.org/gems/frozen_rails)
 [![Build](https://github.com/dunkelziffer/frozen_rails/workflows/Build/badge.svg)](https://github.com/dunkelziffer/frozen_rails/actions)
-[![JRuby Build](https://github.com/dunkelziffer/frozen_rails/workflows/JRuby%20Build/badge.svg)](https://github.com/dunkelziffer/frozen_rails/actions)
 
 # Frozen Rails
 
@@ -33,8 +32,8 @@ gem "frozen_rails"
 
 ### Supported Ruby versions
 
-- Ruby (MRI) >= 2.7.0
-- JRuby >= 9.3.0
+- Ruby (MRI) >= 3.2.0
+- Rails >= 8.1
 
 ## Usage
 
@@ -54,8 +53,8 @@ bin/rails g frozen:md
 ```bash
 # ✅ passes, ✅ works correctly, ❌ has test suite
 
-# - Adds `parklife`
-# - Adds `.gitlab-ci.yml` and tweaks parklife config.
+# - Adds `parklife` and configures ActiveStorage support
+# - Adds support for GitLab CI
 
 bin/rails g frozen:ssg
 ```
@@ -116,9 +115,6 @@ bin/rails g frozen:rails
 
 Bug reports and pull requests are welcome on GitHub at [https://github.com/dunkelziffer/frozen_rails](https://github.com/dunkelziffer/frozen_rails).
 
-## Credits
-
-This gem is generated via [`newgem` template](https://github.com/palkan/newgem) by [@palkan](https://github.com/palkan).
 
 ## License
 
