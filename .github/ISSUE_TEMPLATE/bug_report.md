@@ -2,24 +2,20 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: ''
+labels: 'bug'
 assignees: dunkelziffer
 
 ---
 
-## What did you do?
+## Versions
 
-## What did you expect to happen?
+**Ruby: ?**
+**Rails: ?**
+**Node: ?**
+**frozen_rails: ?**
 
-## What actually happened?
+## Observed behavior
 
-## Additional context
+## Expected behavior
 
-## Environment
-
-**Ruby Version:**
-
-**Framework Version (Rails, whatever):**
-
-**frozen_rails Version:**
-
+## Additional notes

@@ -2,24 +2,15 @@
 name: Feature request
 about: Suggest an idea for this project
 title: ''
-labels: enhancement
+labels: ''
 assignees: dunkelziffer
 
 ---
 
-## Is your feature request related to a problem? Please describe.
+## Feature request
 
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+Please only suggest features that are helpful to the majority of static sites.
 
-## Describe the solution you'd like
-
-A clear and concise description of what you want to happen.
-
-## Describe alternatives you've considered
-
-A clear and concise description of any alternative solutions or features you've considered.
-
-## Additional context
-
-Add any other context or screenshots about the feature request here.
-
+`frozen_rails` is intentionally built as a set of Rails generators. It tries its best to provide a good baseline.
+However, users of `frozen_rails` are expected to take ownership of all generated code and shouldn't depend on
+`frozen_rails` for every modification.
