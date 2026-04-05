@@ -116,7 +116,7 @@ module Frozen
           end
         RUBY
 
-        run "b rubocop -a config/initializers/avo.rb"
+        run "bin/rubocop -a config/initializers/avo.rb"
       end
 
       def migrate_and_cleanup_db
