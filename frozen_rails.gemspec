@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
     "rubygems_mfa_required" => "true"
   }
 
-  # CONTENTS
+  # === CONTENTS ===
 
   gemspec = File.basename(__FILE__)
   s.files = `git ls-files`
@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
   s.bindir = "exe"
   s.executables = []
 
-  # DEPENDENCIES
+  # === DEPENDENCIES ===
 
   s.required_ruby_version = ">= 3.2"
 
