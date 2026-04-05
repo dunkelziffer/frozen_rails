@@ -1,4 +1,3 @@
-require "rails/generators"
 require "generators/frozen/md_generator"
 
 RSpec.describe Frozen::Generators::MdGenerator do

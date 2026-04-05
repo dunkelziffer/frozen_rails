@@ -1,4 +1,3 @@
-require "rails/generators"
 require "generators/frozen/ssg_generator"
 
 RSpec.describe Frozen::Generators::SsgGenerator do

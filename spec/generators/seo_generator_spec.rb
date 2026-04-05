@@ -1,4 +1,3 @@
-require "rails/generators"
 require "generators/frozen/seo_generator"
 
 RSpec.describe Frozen::Generators::SeoGenerator do

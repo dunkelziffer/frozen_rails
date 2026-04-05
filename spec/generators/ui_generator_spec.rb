@@ -1,4 +1,3 @@
-require "rails/generators"
 require "generators/frozen/ui_generator"
 
 RSpec.describe Frozen::Generators::UiGenerator do
