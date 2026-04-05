@@ -7,6 +7,59 @@ module Frozen
 
       desc "Wire up UI helpers: classless CSS, importmap example, Hotwire Spark, Stimulus controller, and related configuration"
 
+      def migrate_to_pnpm
+        in_root do
+          run "npm install -g corepack"
+          run "corepack enable pnpm"
+          run "pnpm import"
+          run "pnpm install"
+          run "rm yarn.lock"
+        end
+      end
+
+      def configure_esbuild
+        in_root do
+          # adjust package.json scripts
+          # create esbuild.config.js
+          # configure Procfile.dev
+        end
+      end
+
+      def setup_unpoly
+        in_root do
+          # pnpm add unpoly
+          # scaffold assets folder
+          # TODO: demo hotkey compiler
+        end
+      end
+
+      def setup_view_component
+        in_root do
+          # add view_component gem
+          # add lookbook gem
+          # customize generators
+          # scaffold example component
+        end
+      end
+
+      def setup_herb
+        in_root do
+          # install herb gem
+          # add herb configuration
+          # install herb dev deps to package.json
+          # MAYBE: hook into CI
+        end
+      end
+
+      def setup_jasmine
+        in_root do
+          # install jasmine gem
+          # add jasmine configuration
+          # add my component extension
+          # scaffold example test for hotkey_controller
+        end
+      end
+
       # def add_gems
       #   add_frozen_gems <<~RUBY, env: "development"
       #     # frozen:ui
