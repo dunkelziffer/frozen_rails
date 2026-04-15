@@ -46,8 +46,7 @@ module Frozen
         append_to_application_config <<~RUBY
           # frozen:db
           config.generators do |g|
-            g.orm :active_record, primary_key_type: :uuid
-            g.test_framework nil
+            g.orm :active_record, primary_key_type: :string
             g.helper nil
           end
           config.active_storage.draw_routes = true
