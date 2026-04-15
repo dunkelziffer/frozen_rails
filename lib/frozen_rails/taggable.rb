@@ -24,8 +24,9 @@ module Taggable
 
   def add_frozen_gemfile_tags(env: nil)
     unless File.read("Gemfile").include?(frozen_start_tag(env:))
-      newlines = env ? "\n" : "\n\n"
-      tags = "#{frozen_start_tag(env:)}#{newlines}#{frozen_end_tag(env:)}"
+      space_between = env ? "\n" : "\n\n"
+      space_after = env ? "\n" : ""
+      tags = "#{frozen_start_tag(env:)}#{space_between}#{frozen_end_tag(env:)}#{space_after}"
       insert_into_file "Gemfile", tags, after: frozen_tags_after(env:)
     end
   end
