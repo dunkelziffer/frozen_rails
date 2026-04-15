@@ -64,33 +64,29 @@ module Frozen
             FileUtils.rm_rf(entry)
           end
         end
-
+        remove_dir "app/javascript"
         copy_directory "assets", "app/assets"
-      end
-
-      def setup_unpoly
-        in_root do
-          # TODO: demo hotkey compiler
-        end
+        copy_file "application.html.erb", "app/views/layouts/application.html.erb", force: true
       end
 
       def setup_view_component
-        in_root do
-          # customize generators
-          # scaffold example component
-        end
+        copy_file "application_component.rb", "app/components/application_component.rb"
+        copy_directory "lib", "lib"
+      end
+
+      def setup_lookbook
+        copy_file "lookbook/lookbook_helper.rb", "app/helpers/lookbook_helper.rb"
       end
 
       def setup_jasmine
-        in_root do
-          # add my component extension
-          # scaffold example test for hotkey_controller
-        end
+        copy_directory "jasmine/views", "app/views"
+        copy_file "jasmine/controllers/jasmine_controller.rb", "app/controllers/jasmine_controller.rb"
       end
 
-      # def add_stimulus_controller
-      #   template "ui/hotkey_controller.js", "app/javascript/controllers/hotkey_controller.js"
-      # end
+      def copy_demo_component
+        copy_directory "demo_component", "app/components"
+        copy_directory "demo_component_tests", "tests/components"
+      end
     end
   end
 end
