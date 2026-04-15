@@ -4,5 +4,6 @@ ActiveSupport.on_load(:after_initialize) do
 
   Rails::Generators::ScaffoldControllerGenerator.class_eval do
     remove_hook_for :test_framework
+    remove_hook_for :helper
   end
 end
