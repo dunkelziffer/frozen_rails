@@ -7,27 +7,46 @@ module Frozen
 
       desc "Wire up UI helpers: classless CSS, importmap example, Hotwire Spark, Stimulus controller, and related configuration"
 
-      def migrate_to_pnpm
+      def add_gems
+        add_frozen_gems <<~RUBY
+          # frozen:ui
+          gem "view_component"
+        RUBY
+
+        add_frozen_gems <<~RUBY, env: "development"
+          # frozen:ui
+          gem "listen"
+        RUBY
+
+        add_frozen_gems <<~RUBY, env: "local"
+          # frozen:ui
+          gem "lookbook"
+        RUBY
+      end
+
+      def bundle_gems
+        bundle!
+      end
+
+      def prepare_js_environment
         in_root do
-          run "npm install -g corepack"
-          run "corepack enable pnpm"
-          run "pnpm import"
-          run "pnpm install"
-          run "rm yarn.lock"
+          run "mv .node-version .nvmrc"
+          run "nvm install"
+          run "npm install -g yarn"
         end
       end
 
       def configure_esbuild
         in_root do
-          # adjust package.json scripts
-          # create esbuild.config.js
-          # configure Procfile.dev
+          run "yarn add --dev esbuild-plugin-import-glob esbuild-plugin-text-replace"
+          copy_file "esbuild.config.js"
+          run 'npm pkg set type="module"'
+          run 'npm pkg set scripts.build="node esbuild.config.js"'
         end
       end
 
       def setup_unpoly
         in_root do
-          # pnpm add unpoly
           # scaffold assets folder
           # TODO: demo hotkey compiler
         end
@@ -35,19 +54,8 @@ module Frozen
 
       def setup_view_component
         in_root do
-          # add view_component gem
-          # add lookbook gem
           # customize generators
           # scaffold example component
-        end
-      end
-
-      def setup_herb
-        in_root do
-          # install herb gem
-          # add herb configuration
-          # install herb dev deps to package.json
-          # MAYBE: hook into CI
         end
       end
 
@@ -59,17 +67,6 @@ module Frozen
           # scaffold example test for hotkey_controller
         end
       end
-
-      # def add_gems
-      #   add_frozen_gems <<~RUBY, env: "development"
-      #     # frozen:ui
-      #     gem "hotwire-spark"
-      #   RUBY
-      # end
-
-      # def bundle_gems
-      #   bundle!
-      # end
 
       # def add_water_css
       #   return unless File.exist?("app/views/layouts/application.html.erb")
@@ -83,49 +80,9 @@ module Frozen
       #   end
       # end
 
-      # def ensure_importmap_rb
-      #   if File.exist?("config/importmap.rb")
-      #     append_to_file "config/importmap.rb" do
-      #       <<~RUBY
-
-      #         # example pin added by frozen:ui
-      #         pin "canvas-confetti", to: "https://cdn.jsdelivr.net/npm/canvas-confetti@1/dist/confetti.module.mjs"
-      #       RUBY
-      #     end
-      #   else
-      #     create_file "config/importmap.rb", <<~RUBY
-      #       # Pin additional scripts to the importmap here.
-      #       # pin "canvas-confetti", to: "https://cdn.jsdelivr.net/npm/canvas-confetti@1/dist/confetti.module.mjs"
-      #     RUBY
-      #   end
-      # end
 
       # def add_stimulus_controller
       #   template "ui/hotkey_controller.js", "app/javascript/controllers/hotkey_controller.js"
-      # end
-
-      # def configure_spark
-      #   return unless File.exist?("config/environments/development.rb")
-
-      #   inject_into_file "config/environments/development.rb",
-      #     after: "Rails.application.configure do\n" do
-      #     <<~RUBY
-      #       config.hotwire.spark.html_paths += %w[ content ]
-      #       config.hotwire.spark.html_extensions += %w[ md ]
-
-      #     RUBY
-      #   end
-      # end
-
-      # def enable_action_cable
-      #   if File.exist?("config/application.rb")
-      #     inject_into_file "config/application.rb",
-      #       before: "module" do
-      #       "require \"action_cable/engine\"\n"
-      #     end
-      #   end
-
-      #   template "ui/cable.yml", "config/cable.yml" unless File.exist?("config/cable.yml")
       # end
     end
   end
