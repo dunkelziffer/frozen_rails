@@ -1,10 +1,11 @@
-<p style="color: green"><%%= notice %></p>
+<%% content_for :title, "<%= human_name %>: #{@<%= singular_table_name %>.slug}" %>
 
 <%%= render @<%= singular_table_name %> %>
 
-<div>
-  <%%= link_to "Back to <%= human_name.pluralize.downcase %>", <%= index_helper(type: :path) %> %>
-  <%% if Rails.env.development? %>
-    <%%= link_to "Edit", avo.resources_<%= show_helper(type: :path) %> %>
-  <%% end %>
-</div>
+<%% if Rails.env.development? %>
+  <p>
+    <%%= link_to "✏️", avo.resources_<%= show_helper(type: :path) %>, "up-follow": false %>
+  </p>
+<%% end %>
+
+<%%= link_to "Back to all <%= human_name.pluralize.downcase %>", <%= index_helper(type: :path) %> %>

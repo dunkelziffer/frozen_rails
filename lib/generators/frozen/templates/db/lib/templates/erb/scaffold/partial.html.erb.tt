@@ -1,4 +1,4 @@
-<div id="<%%= dom_id <%= singular_name %> %>">
+<article id="<%%= dom_id <%= singular_name %> %>">
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
   <p>
     <strong><%= attribute.human_name %>:</strong>
@@ -14,4 +14,4 @@
   </p>
 
 <% end -%>
-</div>
+</article>
