@@ -2,7 +2,18 @@
 class <%= class_name %> < <%= parent_class_name.classify %>
 <% if attributes.any? { |a| a.name.to_s == "slug" } -%>
   include FriendlyId
-  friendly_id :<%= attributes.reject { |a| a.name.to_s == "slug" }.select { |a| a.type.to_s == "string" }.first.name  %>
+<% if (derived_from = attributes.reject { |a| a.name.to_s == "slug" }.select { |a| a.type.to_s == "string" }.first) -%>
+  friendly_id :<%= derived_from.name %>
+<% else -%>
+  friendly_id :slug_candidates
+
+  # TODO: implement
+  def slug_candidates
+    [
+      "TODO"
+    ]
+  end
+<% end -%>
 <% end -%>
 <% attributes.select(&:reference?).each do |attribute| -%>
   belongs_to :<%= attribute.name %><%= ", polymorphic: true" if attribute.polymorphic? %>
