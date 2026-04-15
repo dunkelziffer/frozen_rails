@@ -25,7 +25,6 @@ module Frozen
       end
 
       def copy_files
-        copy_directory "assets", "app/assets" # TODO: check for conflict in application.css
         copy_directory "controllers", "app/controllers"
         copy_directory "helpers", "app/helpers"
         copy_directory "models", "app/models"
@@ -54,6 +53,11 @@ module Frozen
         RUBY
       end
 
+      def prepare_rouge
+        copy_directory "assets/rouge", "app/assets/rouge"
+        copy_file "assets/application.css", "app/assets/application.css", force: true
+      end
+
       def generate_rouge_css_stylesheet
         theme = options[:rouge_theme]
 
@@ -76,7 +80,7 @@ module Frozen
         theme ||= "github"
 
         say_status :info, "Generating Rouge CSS for theme #{theme}", :blue
-        run "rougify style #{theme} > app/assets/stylesheets/rouge.css"
+        run "rougify style #{theme} > app/assets/rouge/rouge.css"
       end
     end
   end

@@ -1,5 +1,8 @@
-<% @page.categories.each do |category| %>
-  <%= link_to category %>
-<% end %>
+<span>
+  Categories:
+  <% @page.categories.each do |category| %>
+    <%= link_to category %>
+  <% end %>
+</span>
 
 <%= render_content_from @page %>

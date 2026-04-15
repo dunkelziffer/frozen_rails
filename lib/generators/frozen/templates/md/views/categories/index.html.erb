@@ -1,5 +1,7 @@
-<nav>
+<h1>All categories</h1>
+
+<ul>
   <% @categories.each do |category| %>
-    <%= link_to category %>
+    <li><%= link_to category %></li>
   <% end %>
-</nav>
+</ul>
