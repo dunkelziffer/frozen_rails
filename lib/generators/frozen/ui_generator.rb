@@ -90,7 +90,7 @@ module Frozen
           # frozen:ui
           config.lookbook.preview_paths = [ "test/components" ]
           config.lookbook.preview_collection_label = "Components"
-          config.lookbook.page_collection_label = "Docs"
+          config.lookbook.page_collection_label = "Documentation"
           config.lookbook.page_route = "docs"
           config.lookbook.page_paths = [ "test/components/docs" ]
           config.lookbook.ui_theme = "zinc"
