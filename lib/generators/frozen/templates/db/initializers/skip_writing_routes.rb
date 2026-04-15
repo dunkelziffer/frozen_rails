@@ -1,4 +1,4 @@
-ActiveSupport.on_load(:after_initialize) do
+ActiveSupport.on_load(:active_record) do
   require "rails/generators"
   require "rails/generators/erb/scaffold/scaffold_generator"
 
