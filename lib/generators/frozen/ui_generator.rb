@@ -72,15 +72,47 @@ module Frozen
       def setup_view_component
         copy_file "application_component.rb", "app/components/application_component.rb"
         copy_directory "lib", "lib"
+
+        append_to_application_config <<~RUBY
+          # frozen:ui
+          config.i18n.available_locales = [ :en, :de ]
+          config.view_component.parent_class = "ApplicationComponent"
+          config.view_component.generate.preview = true
+          config.view_component.generate.preview_path = "test/components"
+          config.view_component.generate.locale = true
+        RUBY
       end
 
       def setup_lookbook
         copy_file "lookbook/lookbook_helper.rb", "app/helpers/lookbook_helper.rb"
+
+        config = <<~RUBY
+          # frozen:ui
+          config.lookbook.preview_paths = [ "test/components" ]
+          config.lookbook.preview_collection_label = "Components"
+          config.lookbook.page_collection_label = "Docs"
+          config.lookbook.page_route = "docs"
+          config.lookbook.page_paths = [ "test/components/docs" ]
+          config.lookbook.ui_theme = "zinc"
+        RUBY
+
+        append_to_application_config config, env: "development"
+        append_to_application_config config, env: "test"
       end
 
       def setup_jasmine
         copy_directory "jasmine/views", "app/views"
         copy_file "jasmine/controllers/jasmine_controller.rb", "app/controllers/jasmine_controller.rb"
+      end
+
+      def add_routes
+        append_to_routes <<~RUBY
+          # frozen:ui
+          if Rails.env.local?
+            mount Lookbook::Engine, at: "/lookbook"
+            get "jasmine" => "jasmine#index", as: :jasmine
+          end
+        RUBY
       end
 
       def copy_demo_component
