@@ -5,7 +5,7 @@ module Generators
     class ResourceGenerator
       no_tasks do
         def field_string(name, type, options)
-          return "field :slug, as: :id, format_using: -> { link_to value, main_app.polymorphic_path(record) }" if name.to_sym == :slug
+          return "field :slug, as: :id, format_using: -> { link_to value, main_app.polymorphic_path(record), \"data-turbo\": false }" if name.to_sym == :slug
           "field :#{name}, as: :#{type}#{options}"
         end
 
