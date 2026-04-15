@@ -45,9 +45,31 @@ module Frozen
         end
       end
 
+      def add_js_dependencies
+        in_root do
+          run "yarn add unpoly"
+          run "yarn add --dev jasmine jasmine_dom_matchers"
+        end
+      end
+
+      def replace_assets
+        # Remove everything from app/assets except app/assets/rouge
+        in_root do
+          assets_path = Pathname.new("app/assets")
+          FileUtils.mkdir_p(assets_path) unless assets_path.exist?
+
+          assets_path.children.each do |entry|
+            next if entry.basename.to_s == "rouge"
+
+            FileUtils.rm_rf(entry)
+          end
+        end
+
+        copy_directory "assets", "app/assets"
+      end
+
       def setup_unpoly
         in_root do
-          # scaffold assets folder
           # TODO: demo hotkey compiler
         end
       end
@@ -61,25 +83,10 @@ module Frozen
 
       def setup_jasmine
         in_root do
-          # install jasmine gem
-          # add jasmine configuration
           # add my component extension
           # scaffold example test for hotkey_controller
         end
       end
-
-      # def add_water_css
-      #   return unless File.exist?("app/views/layouts/application.html.erb")
-
-      #   inject_into_file "app/views/layouts/application.html.erb",
-      #     after: "<head>\n" do
-      #     <<~ERB
-      #       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-
-      #     ERB
-      #   end
-      # end
-
 
       # def add_stimulus_controller
       #   template "ui/hotkey_controller.js", "app/javascript/controllers/hotkey_controller.js"

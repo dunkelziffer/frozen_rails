@@ -25,6 +25,7 @@ module Frozen
       end
 
       def copy_files
+        copy_directory "assets", "app/assets" # TODO: check for conflict in application.css
         copy_directory "controllers", "app/controllers"
         copy_directory "helpers", "app/helpers"
         copy_directory "models", "app/models"
