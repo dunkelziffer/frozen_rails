@@ -110,14 +110,14 @@ module Frozen
           # frozen:ui
           if Rails.env.local?
             mount Lookbook::Engine, at: "/lookbook"
-            get "jasmine" => "jasmine#index", as: :jasmine
+            resources :jasmine, only: [ :index ]
           end
         RUBY
       end
 
       def copy_demo_component
         copy_directory "demo_component", "app/components"
-        copy_directory "demo_component_tests", "tests/components"
+        copy_directory "demo_component_test", "tests/components"
       end
     end
   end
