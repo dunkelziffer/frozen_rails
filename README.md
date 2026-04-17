@@ -3,113 +3,81 @@
 
 # Frozen Rails
 
-DISCLAIMER: I generated this repo with AI and haven't tested it yet.
-I will verify manually verify the functionality and use AI to generate a test suite as soon as I get to it. Until then, use at your own risk.
+This repo automates the instructions from [rails-static.com](https://rails-static.com) and a lot of additional setup which was created by me.
 
-This repo automates the instructions from [rails-static.com](https://rails-static.com) and some additional setup which was created by me.
-
-Running the full setup `bin/rails g frozen:rails` should turn a fresh Rails application into a full static-site generator that supports Markdown AND structured data (SQLite). The SSG is very developer-focused and might be cumbersome to use for non-devs.
+Running the full setup `bin/rails g frozen:rails` turns a fresh Rails application into a full static site generator that supports Markdown AND structured data (SQLite). The SSG is very developer-focused and might be cumbersome to use for non-devs.
 
 ## Installation
 
-Adding to a gem:
-
-```ruby
-# my-cool-gem.gemspec
-Gem::Specification.new do |spec|
-  # ...
-  spec.add_dependency "frozen_rails"
-  # ...
-end
+```bash
+bundle add frozen_rails
 ```
 
-Or adding to your project:
+## Prerequisites
 
-```ruby
-# Gemfile
-gem "frozen_rails"
-```
-
-### Supported Ruby versions
-
-- Ruby (MRI) >= 3.2.0
-- Rails >= 8.1
+- Ruby with `bundler` installed
+- nvm
 
 ## Usage
 
-The gem ships with Rails generators under the `frozen` namespace. After including `frozen_rails` in your Rails application the following generators will be available:
-
+The gem ships with Rails generators under the `frozen` namespace. You can run them with:
 ```bash
-# ✅ passes, ✅ works correctly, ❌ has test suite
-
-# - Adds `decant` with a custom extension.
-# - Adds `kramdown`, `rouge` and ERB interpolation for `.md` files.
-# - Adds application scaffold.
-
-bin/rails g frozen:md
-# - Prompts for a rouge theme. Pass `--rouge_theme=name` to run non-interactive.
+bin/rails g frozen:GENERATOR_NAME
 ```
 
+The following generators are available:
+
+| Generator | Functionality |
+| --- | --- |
+| `frozen:rails` | Runs `frozen:md`, `frozen:ssg`, `frozen:db` and `frozen:ui` |
+| `frozen:md` | Sets up Markdown processing similar to `rails-static.com` |
+| `frozen:ssg` | Sets up deploying to GitHub & GitLab pages, similar to `rails-static.com` |
+| `frozen:db` | Sets up `static_db`, `avo`, `friendly_id` and fully customizes `bin/rails g scaffold` |
+| `frozen:ui` | Sets up `view_component`, `lookbook`, `esbuild`, `unpoly`, `jasmine` and fully customizes `bin/rails g component` |
+
+## More details
+
 ```bash
-# ✅ passes, ✅ works correctly, ❌ has test suite
+bin/rails g frozen:md
+```
+- `decant` (picks up Markdown files and provides a nice interface)
+- `kramdown` (Markdown processing) with ERB interpolation
+- `rouge` (syntax highlighting for Markdown code blocks)
+- Routes for pages and categories.
 
-# - Adds `parklife` and configures ActiveStorage support
-# - Adds support for GitLab CI
+---
 
+```bash
 bin/rails g frozen:ssg
 ```
+- `parklife` with ActiveStorage config (crawls rack apps and emits a static site)
+- GitHub pages deployment
+- GitLab pages deployment
+
+---
 
 ```bash
-# ✅ passes, ✅ works correctly, ❌ has test suite
-
-# - Adds `sqlite_extensions-uuid`
-# - Adds `static_db`
-# - Adds `friendly_id`
-# - Adds `avo`
-# - Adjusts Rails scaffold generator and migration generator to be more helpful
-
 bin/rails g frozen:db
 ```
+- `static_db` (SQLite <-> YAML converter)
+- `sqlite_extensions-uuid` (SQLite UUID support to avoid YAML merge conflicts)
+- `friendly_id` (for prettier URLs)
+- `avo` (a full admin panel)
+- Adjusts `bin/rails g scaffold`
+
+---
+
 
 ```bash
-# ✅ passes, ❓ works correctly, ❌ has test suite
-
-# - SEO helpers
-# - sitemap/robots skeleton
-
-bin/rails g frozen:seo
-```
-
-```bash
-# FUTURE: frozen:erb
-
-# - view_component
-# - herb
-# - lookbook
-```
-
-```bash
-# ✅ passes, ❓ works correctly, ❌ has test suite
-
-# - water.css
-# - sample importmap pin
-# - Hotwire Spark & Action Cable configuration
-# - Stimulus hotkey controller
-
 bin/rails g frozen:ui
 ```
-
-```bash
-# ✅ passes, ❓ works correctly, ❌ has test suite
-
-# Full Rails setup (runs all frozen generators in order)
-
-bin/rails g frozen:rails
-```
-
-```bash
-# FUTURE: frozen:meetup
-```
+- `esbuild` and `precompiled_assets` (Rails asset pipeline alternative)
+- `Unpoly` (Hotwire alternative)
+- `water.css` (CSS base theme)
+- `Jasmine` (JS test runner)
+- `view_component`
+- `lookbook`
+- Adjusts `bin/rails g component`
 
 ## Contributing
 
