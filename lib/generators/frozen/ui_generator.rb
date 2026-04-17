@@ -35,6 +35,7 @@ module Frozen
       def prepare_js_environment
         in_root do
           run "mv .node-version .nvmrc"
+          run "nvm use"
           run "nvm install"
           run "npm install -g yarn"
         end
