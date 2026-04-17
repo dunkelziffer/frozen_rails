@@ -85,7 +85,7 @@ module Frozen
         comment_lines "config/application.rb", /config\.assets\.paths/
         prepend_to_file "config/initializers/assets.rb", "return unless Rails.env.development?"
 
-        insert_into_file ".github/workflows/ci.yml", <<YAML, before: "\n      - name: Run tests"
+        insert_into_file ".github/workflows/ci.yml", <<YAML1, before: "\n      - name: Run tests"
 
       - uses: actions/setup-node@v6
         with:
@@ -94,9 +94,9 @@ module Frozen
       - run: npm install -g yarn
       - run: yarn install --frozen-lockfile
 
-        YAML
+YAML1
 
-        insert_into_file ".github/workflows/ci.yml", <<YAML, before: "\n      - name: Run System Tests"
+        insert_into_file ".github/workflows/ci.yml", <<YAML2, before: "\n      - name: Run System Tests"
 
       - uses: actions/setup-node@v6
         with:
@@ -105,21 +105,21 @@ module Frozen
       - run: npm install -g yarn
       - run: yarn install --frozen-lockfile
 
-        YAML
+YAML2
 
-        insert_into_file ".github/workflows/parklife.yml", <<YAML, after: "bundler-cache: true\n"
+        insert_into_file ".github/workflows/parklife.yml", <<YAML3, after: "bundler-cache: true\n"
     - uses: actions/setup-node@v6
       with:
         node-version-file: '.nvmrc'
         cache: 'yarn'
     - run: npm install -g yarn
     - run: yarn install --frozen-lockfile
-        YAML
+YAML3
 
-        insert_into_file ".gitlab-ci.yml", <<YAML, after: "    - bundle install\n"
+        insert_into_file ".gitlab-ci.yml", <<YAML4, after: "    - bundle install\n"
     - npm install -g yarn
     - yarn install --frozen-lockfile
-        YAML
+YAML4
       end
 
       def setup_view_component
