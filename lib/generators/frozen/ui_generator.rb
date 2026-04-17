@@ -79,7 +79,7 @@ module Frozen
         comment_lines "config/application.rb", /config\.assets\.paths/
         prepend_to_file "config/initializers/assets.rb", "return unless Rails.env.development?"
 
-        insert_into_file ".github/workflows/ci.yml", <<YAML1, before: "\n      - name: Run tests"
+        insert_into_file ".github/workflows/ci.yml", <<YAML1, before: "\n      - name: Run tests", force: true
 
       - uses: actions/setup-node@v6
         with:
@@ -89,7 +89,7 @@ module Frozen
       - run: yarn install --frozen-lockfile
 YAML1
 
-        insert_into_file ".github/workflows/ci.yml", <<YAML2, before: "\n      - name: Run System Tests"
+        insert_into_file ".github/workflows/ci.yml", <<YAML2, before: "\n      - name: Run System Tests", force: true
 
       - uses: actions/setup-node@v6
         with:
