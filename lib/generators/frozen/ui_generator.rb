@@ -168,7 +168,7 @@ YAML4
 
       def copy_demo_component
         copy_directory "demo_component", "app/components"
-        copy_directory "demo_component_test", "tests/components"
+        copy_directory "demo_component_test", "test/components"
       end
     end
   end
