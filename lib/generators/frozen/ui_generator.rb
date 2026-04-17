@@ -11,11 +11,14 @@ module Frozen
         add_frozen_gems <<~RUBY
           # frozen:ui
           gem "view_component"
+          gem "precompiled_assets"
         RUBY
 
+        comment_lines "Gemfile", /propshaft/
         add_frozen_gems <<~RUBY, env: "development"
           # frozen:ui
           gem "listen"
+          gem "propshaft"
         RUBY
 
         add_frozen_gems <<~RUBY, env: "local"
@@ -38,7 +41,7 @@ module Frozen
 
       def configure_esbuild
         in_root do
-          run "yarn add --dev esbuild-plugin-import-glob esbuild-plugin-text-replace"
+          run "yarn add --dev esbuild-plugin-import-glob esbuild-plugin-text-replace esbuild-manifest-plugin"
           copy_file "esbuild.config.js"
           run 'npm pkg set type="module"'
           run 'npm pkg set scripts.build="node esbuild.config.js"'
@@ -67,6 +70,56 @@ module Frozen
         remove_dir "app/javascript"
         copy_directory "assets", "app/assets"
         copy_file "application.html.erb", "app/views/layouts/application.html.erb", force: true
+
+        # keep:
+        # create (+ force add) app/assets/fonts/.keep
+        # create (+ force add) app/assets/images/.keep
+        # create (+ force add) app/assets/images/pages/.keep
+
+      end
+
+      def switch_to_precompiled_assets
+        in_root do
+          FileUtils.move("content/pages", "app/assets/images/pages")
+        end
+        comment_lines "config/application.rb", /config\.assets\.paths/
+        prepend_to_file "config/initializers/assets.rb", "return unless Rails.env.development?"
+
+        insert_into_file ".github/workflows/ci.yml", <<YAML, before: "\n      - name: Run tests"
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+      - run: npm install -g yarn
+      - run: yarn install --frozen-lockfile
+
+        YAML
+
+        insert_into_file ".github/workflows/ci.yml", <<YAML, before: "\n      - name: Run System Tests"
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+      - run: npm install -g yarn
+      - run: yarn install --frozen-lockfile
+
+        YAML
+
+        insert_into_file ".github/workflows/parklife.yml", <<YAML, after: "bundler-cache: true\n"
+    - uses: actions/setup-node@v6
+      with:
+        node-version-file: '.nvmrc'
+        cache: 'yarn'
+    - run: npm install -g yarn
+    - run: yarn install --frozen-lockfile
+        YAML
+
+        insert_into_file ".gitlab-ci.yml", <<YAML, after: "    - bundle install\n"
+    - npm install -g yarn
+    - yarn install --frozen-lockfile
+        YAML
       end
 
       def setup_view_component
@@ -80,6 +133,7 @@ module Frozen
           config.view_component.generate.preview = true
           config.view_component.generate.preview_path = "test/components"
           config.view_component.generate.locale = true
+          config.asset_path = "/assets"
         RUBY
       end
 
