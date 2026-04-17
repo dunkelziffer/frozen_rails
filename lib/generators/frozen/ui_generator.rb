@@ -75,10 +75,10 @@ module Frozen
 
       def switch_to_precompiled_assets
         in_root do
-          FileUtils.move("content/pages", "app/assets/images/pages")
+          FileUtils.move("content/pages/rails-static", "app/assets/images/pages/rails-static")
         end
         comment_lines "config/application.rb", /config\.assets\.paths/
-        prepend_to_file "config/initializers/assets.rb", "return unless Rails.env.development?"
+        prepend_to_file "config/initializers/assets.rb", "return unless Rails.env.development?\n"
 
         insert_into_file ".github/workflows/ci.yml", <<YAML1, before: "\n      - name: Run tests", force: true
 
@@ -101,12 +101,14 @@ YAML1
 YAML2
 
         insert_into_file ".github/workflows/parklife.yml", <<YAML3, after: "bundler-cache: true\n"
+
     - uses: actions/setup-node@v6
       with:
         node-version-file: '.nvmrc'
         cache: 'yarn'
     - run: npm install -g yarn
     - run: yarn install --frozen-lockfile
+
 YAML3
 
         insert_into_file ".gitlab-ci.yml", <<YAML4, after: "    - bundle install\n"
