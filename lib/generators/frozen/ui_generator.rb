@@ -75,6 +75,7 @@ module Frozen
 
       def switch_to_precompiled_assets
         in_root do
+          # CAUTION: Very brittle!
           FileUtils.move("content/pages/rails-static", "app/assets/images/pages/rails-static")
         end
         comment_lines "config/application.rb", /config\.assets\.paths/
