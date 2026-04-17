@@ -70,12 +70,6 @@ module Frozen
         remove_dir "app/javascript"
         copy_directory "assets", "app/assets"
         copy_file "application.html.erb", "app/views/layouts/application.html.erb", force: true
-
-        # keep:
-        # create (+ force add) app/assets/fonts/.keep
-        # create (+ force add) app/assets/images/.keep
-        # create (+ force add) app/assets/images/pages/.keep
-
       end
 
       def switch_to_precompiled_assets
@@ -93,7 +87,6 @@ module Frozen
           cache: 'yarn'
       - run: npm install -g yarn
       - run: yarn install --frozen-lockfile
-
 YAML1
 
         insert_into_file ".github/workflows/ci.yml", <<YAML2, before: "\n      - name: Run System Tests"
@@ -104,7 +97,6 @@ YAML1
           cache: 'yarn'
       - run: npm install -g yarn
       - run: yarn install --frozen-lockfile
-
 YAML2
 
         insert_into_file ".github/workflows/parklife.yml", <<YAML3, after: "bundler-cache: true\n"
