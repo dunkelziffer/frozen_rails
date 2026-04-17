@@ -15,6 +15,7 @@ module Frozen
         RUBY
 
         comment_lines "Gemfile", /propshaft/
+        comment_lines "Gemfile", /jsbundling-rails/
         add_frozen_gems <<~RUBY, env: "development"
           # frozen:ui
           gem "listen"
