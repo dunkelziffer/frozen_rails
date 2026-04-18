@@ -131,6 +131,8 @@ YAML4
           config.view_component.generate.preview_path = "test/components"
           config.view_component.generate.locale = true
           config.asset_path = "/assets"
+          # Use propshaft in development and precompiled_assets in production. Very brittle.
+          config.assets.paths << Rails.root.join("app/assets") if Rails.env.development?
         RUBY
       end
 
