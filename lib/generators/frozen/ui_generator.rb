@@ -130,6 +130,7 @@ YAML4
           config.view_component.generate.preview = true
           config.view_component.generate.preview_path = "test/components"
           config.view_component.generate.locale = true
+          config.view_component.previews.default_layout = "component_preview"
           config.asset_path = "/assets"
           # Use propshaft in development and precompiled_assets in production. Very brittle.
           config.assets.paths << Rails.root.join("app/assets") if Rails.env.development?
@@ -138,6 +139,7 @@ YAML4
 
       def setup_lookbook
         copy_file "lookbook/lookbook_helper.rb", "app/helpers/lookbook_helper.rb"
+        copy_file "lookbook/component_preview.html.erb", "app/views/layouts/component_preview.html.erb"
 
         config = <<~RUBY
           # frozen:ui
