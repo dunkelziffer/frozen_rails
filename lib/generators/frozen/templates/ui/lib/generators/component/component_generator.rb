@@ -29,11 +29,12 @@ class ComponentGenerator < Rails::Generators::NamedBase
     template "jasmine_spec.js.tt", File.join("test/components", class_path, "#{file_name}_component_spec.js")
   end
 
-  def fix_module_nesting_via_rubocop_because_it_was_impossible_to_get_module_namespacing_to_work_as_expected
-    in_root do
-      system("bash", "-c", 'bin/rubocop --only Style/ClassAndModuleChildren,Layout/IndentationWidth,Layout/CommentIndentation --autocorrect-all --force-exclusion --config <(echo "Style/ClassAndModuleChildren: { EnforcedStyle: nested }")')
-    end
-  end
+  # Needs to only apply to files with a git diff. Otherwise, very annoying.
+  # def fix_module_nesting_via_rubocop_because_it_was_impossible_to_get_module_namespacing_to_work_as_expected
+  #   in_root do
+  #     system("bash", "-c", 'bin/rubocop --only Style/ClassAndModuleChildren,Layout/IndentationWidth,Layout/CommentIndentation --autocorrect-all --force-exclusion --config <(echo "Style/ClassAndModuleChildren: { EnforcedStyle: nested }")')
+  #   end
+  # end
 
   private
 
