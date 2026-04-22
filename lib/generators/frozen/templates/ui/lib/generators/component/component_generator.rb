@@ -50,7 +50,7 @@ class ComponentGenerator < Rails::Generators::NamedBase
     base = file_path.gsub("/", "---").dasherize
     [
       base,
-      *css_attributes.map { |attr| "#{base}--#{attr}" }
+      *css_attributes.map { |attr| ".#{base}--#{attr}" }
     ]
   end
 
