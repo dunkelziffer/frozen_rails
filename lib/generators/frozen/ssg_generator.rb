@@ -21,6 +21,12 @@ module Frozen
       def run_parklife_init
         run "bundle exec parklife init --rails --github-pages"
         append_to_file ".gitignore", "# frozen:ssg\n/build\n"
+
+        insert_into_file ".github/workflows/parklife.yml", <<YAML, before: "\n    - uses: actions/checkout@v4"
+
+    - name: Install packages
+      run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libvips
+YAML
       end
 
       def setup_gitlab_pages
