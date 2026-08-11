@@ -19,7 +19,6 @@ module Frozen
         add_frozen_gems <<~RUBY, env: "development"
           # frozen:ui
           gem "listen"
-          gem "propshaft"
         RUBY
 
         add_frozen_gems <<~RUBY, env: "local"
@@ -80,7 +79,8 @@ module Frozen
           FileUtils.move("content/pages/rails-static", "app/assets/images/pages/rails-static")
         end
         comment_lines "config/application.rb", /config\.assets\.paths/
-        prepend_to_file "config/initializers/assets.rb", "return unless Rails.env.development?\n"
+        comment_lines "config/environments/development.rb", /config\.assets\.quiet/
+        remove_file "config/initializers/assets.rb"
 
         insert_into_file ".github/workflows/ci.yml", <<YAML1, before: "\n      - name: Run tests", force: true
 
@@ -132,8 +132,6 @@ YAML4
           config.view_component.generate.locale = true
           config.view_component.previews.default_layout = "component_preview"
           config.asset_path = "/assets"
-          # Use propshaft in development and precompiled_assets in production. Very brittle.
-          config.assets.paths << Rails.root.join("app/assets") if Rails.env.development?
         RUBY
       end
 
