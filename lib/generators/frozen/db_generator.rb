@@ -15,7 +15,7 @@ module Frozen
           gem "friendly_id"
         RUBY
 
-        add_frozen_gems <<~RUBY, env: "development"
+        add_frozen_gems <<~RUBY, env: "local"
           # frozen:db
           gem "avo", ">= 3.2"
         RUBY
@@ -28,7 +28,7 @@ module Frozen
       def add_routes
         append_to_routes <<~RUBY
           # frozen:db
-          if Rails.env.development?
+          if defined?(Avo)
             mount_avo at: "/avo"
           end
         RUBY
@@ -38,6 +38,7 @@ module Frozen
         copy_file "database.yml", "config/database.yml", force: true
         copy_directory "initializers", "config/initializers"
         copy_directory "lib", "lib"
+        copy_file "avo_resource_test.rb", "test/models/avo_resource_test.rb"
       end
 
       def configure_application
@@ -96,7 +97,7 @@ module Frozen
         rails_command "g avo:install"
 
         prepend_to_file "config/initializers/avo.rb", <<~RUBY + "\n"
-          if Rails.env.development?
+          if defined?(Avo)
             # Allow moving Avo controllers into `app/avo/controllers/`
             Rails.autoloaders.main.collapse(
               Rails.root.join("app/avo/controllers")
