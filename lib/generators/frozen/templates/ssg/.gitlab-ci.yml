@@ -12,7 +12,7 @@ build:
   stage: build
   script:
     - apt-get update -yqqq
-    - apt-get install -y nodejs
+    - apt-get install -y nodejs libvips
     - bundle config set path 'vendor'
     - bundle install
     - bin/static-build
