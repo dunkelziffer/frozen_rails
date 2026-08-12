@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    frozen_rails (0.0.5)
+    frozen_rails (0.0.9)
       rails (>= 8.1)
 
 GEM
