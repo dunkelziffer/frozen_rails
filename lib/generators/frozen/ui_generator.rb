@@ -7,6 +7,12 @@ module Frozen
 
       desc "Wire up UI helpers: classless CSS, importmap example, Hotwire Spark, Stimulus controller, and related configuration"
 
+      def check_prerequisites
+        in_root do
+          require_js_toolchain!
+        end
+      end
+
       def add_gems
         add_frozen_gems <<~RUBY
           # frozen:ui
@@ -31,28 +37,25 @@ module Frozen
         bundle!
       end
 
-      def prepare_js_environment
+      def symlink_node_version
         in_root do
-          run "mv .node-version .nvmrc"
-          run "nvm use"
-          run "nvm install"
-          run "npm install -g yarn"
+          create_link ".nvmrc", ".node-version" if File.exist?(".node-version")
         end
       end
 
       def configure_esbuild
         in_root do
-          run "yarn add --dev esbuild-plugin-import-glob esbuild-plugin-text-replace esbuild-manifest-plugin"
+          run "yarn add --dev esbuild-plugin-import-glob esbuild-plugin-text-replace esbuild-manifest-plugin", abort_on_failure: true
           copy_file "esbuild.config.js"
-          run 'npm pkg set type="module"'
-          run 'npm pkg set scripts.build="node esbuild.config.js"'
+          run 'npm pkg set type="module"', abort_on_failure: true
+          run 'npm pkg set scripts.build="node esbuild.config.js"', abort_on_failure: true
         end
       end
 
       def add_js_dependencies
         in_root do
-          run "yarn add unpoly"
-          run "yarn add --dev jasmine jasmine_dom_matchers"
+          run "yarn add unpoly", abort_on_failure: true
+          run "yarn add --dev jasmine jasmine_dom_matchers", abort_on_failure: true
         end
       end
 

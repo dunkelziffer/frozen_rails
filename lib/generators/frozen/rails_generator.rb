@@ -4,9 +4,16 @@ require "frozen_rails/taggable"
 module Frozen
   module Generators
     class RailsGenerator < Rails::Generators::Base
+      include Nodeable
       include Taggable
 
       desc "Run all frozen setup generators (md, ssg, db, ui, seo)"
+
+      def check_prerequisites
+        in_root do
+          require_js_toolchain!
+        end
+      end
 
       def run_all
         say_status :info, "invoking frozen:md"

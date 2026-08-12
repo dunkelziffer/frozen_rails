@@ -16,7 +16,7 @@ bundle add frozen_rails
 ## Prerequisites
 
 - Ruby with `bundler` installed
-- nvm
+- nvm (`node` and `yarn` must be on your `PATH`)
 
 ## Usage
 

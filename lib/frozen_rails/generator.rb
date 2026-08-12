@@ -2,6 +2,7 @@ require "rails/generators"
 require "frozen_rails/appendable"
 require "frozen_rails/bundleable"
 require "frozen_rails/copyable"
+require "frozen_rails/nodeable"
 require "frozen_rails/taggable"
 
 module FrozenRails
@@ -9,6 +10,7 @@ module FrozenRails
     include Appendable
     include Bundleable
     include Copyable
+    include Nodeable
     include Taggable
   end
 end
