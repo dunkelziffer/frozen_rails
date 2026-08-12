@@ -1,4 +1,4 @@
-require "generators/frozen/md_generator"
+require "generators/frozen/rouge_generator"
 
 RSpec.describe Frozen::Generators::RougeGenerator do
   it "is registered under the frozen namespace" do
