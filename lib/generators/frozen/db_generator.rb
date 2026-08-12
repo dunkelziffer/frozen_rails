@@ -17,7 +17,7 @@ module Frozen
 
         add_frozen_gems <<~RUBY, env: "local"
           # frozen:db
-          gem "avo", ">= 3.2"
+          gem "avo", ">= 3.2", "< 4"
         RUBY
       end
 
