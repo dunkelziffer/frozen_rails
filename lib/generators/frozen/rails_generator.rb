@@ -1,4 +1,5 @@
 require "rails/generators"
+require "frozen_rails/nodeable"
 require "frozen_rails/taggable"
 
 module Frozen
